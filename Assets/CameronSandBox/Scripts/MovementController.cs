@@ -27,6 +27,20 @@ public class MovementController : MonoBehaviour
             GetMovementDirection();
         }
 
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+
+        if(hit)
+        {
+            Debug.Log("here");
+            Vector3 point = hit.point;
+
+            Vector3Int currentCell = fogOfWar.WorldToCell(point);
+            fogOfWar.SetTile(currentCell, null);
+
+        }
+
     }
 
     public void GetMovementDirection()

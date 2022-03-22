@@ -78,6 +78,6 @@ public class TileSelector : MonoBehaviour
         //tileHighlight.SetActive(false);
         MoveSelector move = GetComponent<MoveSelector>();
         move.EnterState(movingPiece);
-        
+        selected = false;
     }
 }

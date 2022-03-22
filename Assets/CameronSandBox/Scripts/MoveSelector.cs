@@ -79,5 +79,6 @@ public class MoveSelector : MonoBehaviour
         movingPiece = null;
         TileSelector selector = GetComponent<TileSelector>();
         selector.EnterState();
+        selected = false;
     }
 }

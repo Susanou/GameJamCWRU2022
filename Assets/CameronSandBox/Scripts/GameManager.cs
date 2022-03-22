@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Debug.Log("Player position=" + GetPlayerCellPosition());
+        UpdateFogOfWar();
     }
 
     // Update is called once per frame

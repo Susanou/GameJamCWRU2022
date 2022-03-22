@@ -37,7 +37,7 @@ public class MoveSelector : MonoBehaviour
         if(this.enabled){
             Vector2 ray = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-            //Debug.Log(ray);
+            Debug.Log(ray);
             
             RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
             if(hit)
@@ -70,6 +70,7 @@ public class MoveSelector : MonoBehaviour
     {
         this.enabled = true;
         movingPiece = piece;
+        selected = false;
     }
     
     private void ExitState()
@@ -78,6 +79,5 @@ public class MoveSelector : MonoBehaviour
         movingPiece = null;
         TileSelector selector = GetComponent<TileSelector>();
         selector.EnterState();
-        selected = false;
     }
 }

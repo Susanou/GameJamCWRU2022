@@ -24,7 +24,7 @@ public class TileSelector : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
 
     }
 
@@ -69,6 +69,7 @@ public class TileSelector : MonoBehaviour
     public void EnterState()
     {
         enabled = true;
+        selected = false;
     }
 
     private void ExitState(GameObject movingPiece)
@@ -77,6 +78,6 @@ public class TileSelector : MonoBehaviour
         //tileHighlight.SetActive(false);
         MoveSelector move = GetComponent<MoveSelector>();
         move.EnterState(movingPiece);
-        selected = false;
+        
     }
 }

@@ -9,36 +9,60 @@ public class TileSelector : MonoBehaviour
     public GameObject tileHighlightPrefab;
     private GameObject tileHighlight;
 
-    public Tilemap fogOfWar;
+    public Tilemap map;
+    public Tilemap fogOfWar; // DO I need this?    
+
+    private bool selected;
 
     // Start is called before the first frame update
     void Start()
     {
         //tileHighlight = Instantiate(tileHighlightPrefab, new Vector3(0,0,0), Quaternion.identity, gameObject.transform);
         //tileHighlight.SetActive(false);
+        selected = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        Debug.Log(ray);
+    }
+
+    
+    void OnSelect()
+    {
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+        Debug.Log("trying to select");
         
-        RaycastHit hit;
-        Physics.Raycast(ray, out hit);
-        Debug.Log(hit);
-        if(Physics.Raycast(ray, out hit))
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+        if(hit)
         {
+
+            //Debug.Log("hit");
             Vector3 point = hit.point;
 
-            Vector3Int currentCell = fogOfWar.WorldToCell(point);
-            fogOfWar.SetTile(currentCell, null);
+            Vector3Int currentCell = map.WorldToCell(point);
+            Debug.Log(currentCell);
+            if(currentCell == GameManager.instance.GetPlayerCellPosition())
+            {
+                //would rather check the position of the player on the board rather than using world positions
+                Debug.Log("Confirm hit player");
+                selected = true;
+            }
 
         }
         else
         {
             //tileHighlight.SetActive(false);
+        }
+    }
+
+    void OnConfirm()
+    {
+        if(selected)
+        {
+            ExitState(GameManager.instance.player);
         }
     }
 
@@ -50,8 +74,9 @@ public class TileSelector : MonoBehaviour
     private void ExitState(GameObject movingPiece)
     {
         this.enabled = false;
-        tileHighlight.SetActive(false);
-        //MoveSelector move = GetComponent<MoveSelector>();
-        //move.EnterState(movingPiece);
+        //tileHighlight.SetActive(false);
+        MoveSelector move = GetComponent<MoveSelector>();
+        move.EnterState(movingPiece);
+        selected = false;
     }
 }

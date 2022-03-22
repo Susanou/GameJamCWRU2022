@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 133682338}
   - component: {fileID: 133682337}
   - component: {fileID: 133682340}
+  - component: {fileID: 133682341}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -735,6 +736,47 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!60 &133682341
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133682334}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.25}
+    oldSize: {x: 1, y: 1.939394}
+    newSize: {x: 1, y: 1.939394}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.36363637, y: 0.469697}
+      - {x: 0.34848487, y: 0.53030306}
+      - {x: 0.33333334, y: 0.56060606}
+      - {x: 0.060606062, y: 0.90909094}
+      - {x: -0.015151516, y: 0.9545455}
+      - {x: -0.42424244, y: 0.9545455}
+      - {x: -0.42424244, y: 0.8030303}
+      - {x: -0.25757575, y: 0.6515152}
+      - {x: -0.40909094, y: 0.42424244}
+      - {x: -0.40909094, y: 0.121212125}
+      - {x: -0.34848487, y: 0}
+      - {x: -0.22727273, y: -0.16666667}
+      - {x: 0.121212125, y: -0.16666667}
+      - {x: 0.3030303, y: -0.045454547}
+      - {x: 0.3030303, y: 0.09090909}
+      - {x: 0.36363637, y: 0.18181819}
 --- !u!1 &188146363
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,6 +788,8 @@ GameObject:
   - component: {fileID: 188146365}
   - component: {fileID: 188146364}
   - component: {fileID: 188146366}
+  - component: {fileID: 188146367}
+  - component: {fileID: 188146368}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -790,13 +834,59 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188146363}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c893bf8cb7894e8448e8f7afb3441d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tileHighlightPrefab: {fileID: 0}
+  map: {fileID: 874805567}
   fogOfWar: {fileID: 1848727097}
+--- !u!114 &188146367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188146363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46bf288db0e40ba4fb651be5e23b36b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveLocationPrefab: {fileID: 0}
+  tileHighlightPrefab: {fileID: 0}
+  attackLocationPrefab: {fileID: 0}
+--- !u!114 &188146368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188146363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f509a4a49b8f7489e7b562a3eecdfc, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -47096,3 +47186,49 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &1963158684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1963158686}
+  - component: {fileID: 1963158685}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1963158685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963158684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054b48633a1e40b428f817f1fc44b252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 874805567}
+  fogOfWar: {fileID: 1848727097}
+  player: {fileID: 133682334}
+--- !u!4 &1963158686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1963158684}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.435687, y: -2.4690347, z: -53.349026}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

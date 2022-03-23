@@ -44,6 +44,7 @@ public class TileSelector : MonoBehaviour
 
             Vector3Int currentCell = map.WorldToCell(point);
             Debug.Log(currentCell);
+            
             if(currentCell == GameManager.instance.GetPlayerCellPosition())
             {
                 //would rather check the position of the player on the board rather than using world positions

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
 
     private GameObject currentPlayer;
+    private Board board;
 
     void Awake()
     {
@@ -23,7 +24,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Player position=" + GetPlayerCellPosition());
+        board = GameObject.Find("Grid").GetComponent<Board>();
+
+        Vector2Int playerBoardPos = board.CoordsTilemapToBoard(GetPlayerCellPosition());
+        Debug.Log("Player position=" + playerBoardPos);
+        player.GetComponent<Unit>().MoveTo(board[playerBoardPos.x,playerBoardPos.y]);
+        board[playerBoardPos.x,playerBoardPos.y].contents.Add(player);
+
         UpdateFogOfWar();
     }
 
@@ -40,7 +47,8 @@ public class GameManager : MonoBehaviour
 
     public void Move(GameObject movingPiece, Vector3Int tilePoint)
     {
-        movingPiece.transform.position = map.CellToWorld(tilePoint);
+        Debug.Log("board points ");
+        board.Move(movingPiece, board.CoordsTilemapToBoard(tilePoint));
         UpdateFogOfWar();
     }
 
@@ -53,13 +61,12 @@ public class GameManager : MonoBehaviour
         Vector3Int currentPlayerTile = fogOfWar.WorldToCell(player.transform.position);
 
         //Clear the surrounding tiles
-        for(int x=-1; x<= 1; x++)
-        {
-            for(int y=-1; y<= 1; y++)
-            {
-                fogOfWar.SetTile(currentPlayerTile + new Vector3Int(x, y, 0), null);
-            }
+        (int,int)[] allNeighbors = new (int,int)[] {(0,0),(-1,0),(1,0),(0,-1),(0,1),(0,0),(0,0)};
+        allNeighbors[5] = currentPlayerTile.y %2 == 0 ? (-1,1) : (1,1);
+        allNeighbors[6] = currentPlayerTile.y %2 == 0 ? (-1,-1) : (1,-1);
 
+        foreach((int,int) neighbor in allNeighbors) {
+            fogOfWar.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
         }
 
     }

@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
-    public List<GameObject> pieces;
 
-    public Player(string name)
-    {
-        this.name = name;
-        pieces = new List<GameObject>();
-    }
+    public Tilemap fogOfWar;
+
+    public Camera camera;
 }

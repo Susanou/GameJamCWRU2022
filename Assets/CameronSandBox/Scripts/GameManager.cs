@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Tilemap map;
-    public Tilemap fogOfWar;
 
-    public GameObject player;
+    public GameObject player1;
+    public GameObject player2;
 
-    private GameObject currentPlayer;
+    private Player currentPlayer;
+    private Player otherPlayer;
     private Board board;
 
     void Awake()
@@ -26,12 +27,25 @@ public class GameManager : MonoBehaviour
     {
         board = GameObject.Find("Grid").GetComponent<Board>();
 
-        Vector2Int playerBoardPos = board.CoordsTilemapToBoard(GetPlayerCellPosition());
+        Vector2Int playerBoardPos = board.CoordsTilemapToBoard(GetPlayerCellPosition(player1));
         Debug.Log("Player position=" + playerBoardPos);
-        player.GetComponent<Unit>().MoveTo(board[playerBoardPos.x,playerBoardPos.y]);
-        board[playerBoardPos.x,playerBoardPos.y].contents.Add(player);
+        player1.GetComponent<Unit>().MoveTo(board[playerBoardPos.x,playerBoardPos.y]);
+        board[playerBoardPos.x,playerBoardPos.y].contents.Add(player1);
 
-        UpdateFogOfWar();
+        playerBoardPos = board.CoordsTilemapToBoard(GetPlayerCellPosition(player2));
+        Debug.Log("Player position=" + playerBoardPos);
+        player2.GetComponent<Unit>().MoveTo(board[playerBoardPos.x,playerBoardPos.y]);
+        board[playerBoardPos.x,playerBoardPos.y].contents.Add(player2);
+        
+        currentPlayer = player1.GetComponent<Player>();
+        otherPlayer = player2.GetComponent<Player>();
+
+        UpdateFogOfWar(player1.GetComponent<Player>().fogOfWar);
+        UpdateFogOfWar(player2.GetComponent<Player>().fogOfWar);
+
+        //disable player 2
+        otherPlayer.camera.enabled = false;
+        otherPlayer.fogOfWar.enabled = false;
     }
 
     // Update is called once per frame
@@ -40,7 +54,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public Vector3Int GetPlayerCellPosition()
+    public Vector3Int GetPlayerCellPosition(GameObject player)
     {
         return map.WorldToCell(player.transform.position);
     }
@@ -49,16 +63,28 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("board points ");
         board.Move(movingPiece, board.CoordsTilemapToBoard(tilePoint));
-        UpdateFogOfWar();
+        UpdateFogOfWar(currentPlayer.fogOfWar);
+        NextPlayer();
     }
 
-    public void NextPlayer(){
-
-    }
-
-    void UpdateFogOfWar()
+    public void NextPlayer()
     {
-        Vector3Int currentPlayerTile = fogOfWar.WorldToCell(player.transform.position);
+
+        Player tmpPlayer = currentPlayer;
+
+        currentPlayer.camera.enabled = false;
+        currentPlayer.fogOfWar.enabled = false;
+
+        currentPlayer = otherPlayer;
+        otherPlayer = tmpPlayer;
+
+        currentPlayer.camera.enabled = true;
+        currentPlayer.fogOfWar.enabled = true;
+    }
+
+    void UpdateFogOfWar(Tilemap playerFog)
+    {
+        Vector3Int currentPlayerTile = playerFog.WorldToCell(currentPlayer.transform.position);
 
         //Clear the surrounding tiles
         (int,int)[] allNeighbors = new (int,int)[] {(0,0),(-1,0),(1,0),(0,-1),(0,1),(0,0),(0,0)};
@@ -66,7 +92,7 @@ public class GameManager : MonoBehaviour
         allNeighbors[6] = currentPlayerTile.y %2 == 0 ? (-1,-1) : (1,-1);
 
         foreach((int,int) neighbor in allNeighbors) {
-            fogOfWar.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
+            playerFog.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
         }
 
     }

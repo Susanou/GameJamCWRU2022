@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
 
         //disable player 2
         otherPlayer.camera.enabled = false;
-        otherPlayer.fogOfWar.enabled = false;
+        otherPlayer.fogOfWar.gameObject.SetActive(false);
+        otherPlayer.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -73,13 +74,15 @@ public class GameManager : MonoBehaviour
         Player tmpPlayer = currentPlayer;
 
         currentPlayer.camera.enabled = false;
-        currentPlayer.fogOfWar.enabled = false;
+        currentPlayer.fogOfWar.gameObject.SetActive(false);
+        currentPlayer.gameObject.SetActive(false);
+
+        otherPlayer.camera.enabled = true;
+        otherPlayer.fogOfWar.gameObject.SetActive(true);
+        otherPlayer.gameObject.SetActive(true);
 
         currentPlayer = otherPlayer;
         otherPlayer = tmpPlayer;
-
-        currentPlayer.camera.enabled = true;
-        currentPlayer.fogOfWar.enabled = true;
     }
 
     void UpdateFogOfWar(Tilemap playerFog)

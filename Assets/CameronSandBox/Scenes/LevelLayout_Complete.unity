@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 18206437}
   - component: {fileID: 18206436}
   - component: {fileID: 18206435}
-  - component: {fileID: 18206434}
   - component: {fileID: 18206433}
   - component: {fileID: 18206432}
+  - component: {fileID: 18206434}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Unit
@@ -180,7 +180,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -195,22 +195,24 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.36363637, y: 0.469697}
-      - {x: 0.34848487, y: 0.53030306}
-      - {x: 0.33333334, y: 0.56060606}
-      - {x: 0.060606062, y: 0.90909094}
-      - {x: -0.015151516, y: 0.9545455}
-      - {x: -0.42424244, y: 0.9545455}
-      - {x: -0.42424244, y: 0.8030303}
-      - {x: -0.25757575, y: 0.6515152}
-      - {x: -0.40909094, y: 0.42424244}
-      - {x: -0.40909094, y: 0.121212125}
-      - {x: -0.34848487, y: 0}
-      - {x: -0.22727273, y: -0.16666667}
-      - {x: 0.121212125, y: -0.16666667}
-      - {x: 0.3030303, y: -0.045454547}
-      - {x: 0.3030303, y: 0.09090909}
-      - {x: 0.36363637, y: 0.18181819}
+    - - {x: 0.27272728, y: 0}
+      - {x: 0.42424244, y: 0.3181818}
+      - {x: 0.42424244, y: 0.3939394}
+      - {x: 0.40909094, y: 0.45454547}
+      - {x: 0.2878788, y: 0.42424244}
+      - {x: 0.16666667, y: 0.45454547}
+      - {x: 0.121212125, y: 0.469697}
+      - {x: 0.015151516, y: 0.469697}
+      - {x: -0.060606062, y: 0.42424244}
+      - {x: -0.36363637, y: 0.09090909}
+      - {x: -0.36363637, y: -0.36363637}
+      - {x: -0.27272728, y: -0.53030306}
+      - {x: -0.1969697, y: -0.6060606}
+      - {x: -0.09090909, y: -0.6515152}
+      - {x: 0.1969697, y: -0.6515152}
+      - {x: 0.37878788, y: -0.45454547}
+      - {x: 0.42424244, y: -0.09090909}
+      - {x: 0.42424244, y: -0.045454547}
 --- !u!50 &18206435
 Rigidbody2D:
   serializedVersion: 4
@@ -507,6 +509,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: cd2e955db0678f84587c5ebd4af5ac64, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 864a7880b9b3d9242ad0a336720ee1c3, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: 0cfb235cd6b9c214492d75b7e1ef3846, type: 3}
@@ -514,6 +518,8 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: a8b8ff0561fbf6b4789c8b488510295c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 9bff1f17dd987824383ff7f836f861be, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 11
     m_Data:
@@ -535,22 +541,22 @@ Tilemap:
       e33: 1
   - m_RefCount: 0
     m_Data:
-      e00: 8.785626e-39
-      e01: NaN
-      e02: 853.19434
-      e03: 0
-      e10: 0
-      e11: NaN
-      e12: 1e-45
-      e13: 0
-      e20: NaN
-      e21: 0
-      e22: 8.785603e-39
-      e23: NaN
-      e30: 1
-      e31: 7.34684e-40
-      e32: 0
-      e33: NaN
+      e00: -1.084227e-19
+      e01: -6.9789734
+      e02: 1.0850397e-19
+      e03: 6.7646217
+      e10: 7.82e-43
+      e11: 4.5904e-41
+      e12: 7.85e-43
+      e13: 7.82e-43
+      e20: 6e-45
+      e21: -2.9939599e+16
+      e22: -2.9937709e+16
+      e23: -2.9937709e+16
+      e30: 0
+      e31: 2.52e-43
+      e32: 2.52e-43
+      e33: 2.52e-43
   m_TileColorArray:
   - m_RefCount: 11
     m_Data: {r: 1, g: 1, b: 1, a: 1}
@@ -1219,14 +1225,13 @@ GameObject:
   - component: {fileID: 806122806}
   - component: {fileID: 806122809}
   - component: {fileID: 806122808}
-  - component: {fileID: 806122807}
   m_Layer: 0
   m_Name: Fog Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &806122806
 Transform:
   m_ObjectHideFlags: 0
@@ -1241,22 +1246,6 @@ Transform:
   m_Father: {fileID: 188146365}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!19719996 &806122807
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806122805}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
 --- !u!483693784 &806122808
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -47624,7 +47613,6 @@ GameObject:
   - component: {fileID: 1848727095}
   - component: {fileID: 1848727097}
   - component: {fileID: 1848727096}
-  - component: {fileID: 1848727098}
   m_Layer: 0
   m_Name: Fog Player1
   m_TagString: Untagged
@@ -55198,6 +55186,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 0
       m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -9, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -64957,11 +64955,15 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 1725
     m_Data: {fileID: 11400000, guid: 61ef37816df33a547987e10af73896e0, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 280139e3b62bbc847a41b67839fb86ea, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1725
     m_Data: {fileID: 21300000, guid: 0cd0f54ed962ddd4eafb33a8b06b94e0, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 54d373d41d6e7dc4c89d9d1c7e4fadfe, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1725
+  - m_RefCount: 1726
     m_Data:
       e00: 1
       e01: 0
@@ -64980,7 +64982,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1725
+  - m_RefCount: 1726
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -65006,22 +65008,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!19719996 &1848727098
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848727094}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
 --- !u!1 &1963158684
 GameObject:
   m_ObjectHideFlags: 0
@@ -65052,7 +65038,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 874805567}
-  fogOfWar: {fileID: 1848727097}
   player1: {fileID: 133682334}
   player2: {fileID: 18206431}
 --- !u!4 &1963158686

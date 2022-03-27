@@ -12,11 +12,16 @@ public class GameManager : MonoBehaviour
     public Vector2Int player1Start;
     public Vector2Int player2Start;
 
-    public GameObject player1Prefab;
-    public GameObject player2Prefab;
+    public GameObject P1unitPrefab;
+    public GameObject P2unitPrefab;
 
-    private Player currentPlayer;
-    private Player otherPlayer;
+    public int unitCount;
+
+    public Player p1;
+    public Player p2;
+
+    public Player currentPlayer;
+    public Player otherPlayer;
     [SerializeField]
     private Board board;
 
@@ -30,30 +35,27 @@ public class GameManager : MonoBehaviour
     {
         board = GameObject.Find("Grid").GetComponent<Board>();
 
+        currentPlayer = p1;
+        otherPlayer = p2;
+
         Vector3 worldPosition = map.CellToWorld(board.CoordsBoardToTilemap(player1Start));
-        GameObject player1 = Instantiate(player1Prefab, worldPosition, Quaternion.identity, gameObject.transform);
-        player1.GetComponent<Unit>().MoveTo(board[player1Start.x,player1Start.y]);
-        board[player1Start.x,player1Start.y].contents.Add(player1);
+        for (int i = 0; i < unitCount; i++) {
+            GameObject p1unit = Instantiate(P1unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
+            p1.playerUnits.Add(p1unit);
+            board.Move(p1unit, player1Start);
+        }
+
+        currentPlayer = p2;
+        otherPlayer = p1;
 
         worldPosition = map.CellToWorld(board.CoordsBoardToTilemap(player2Start));
-        GameObject player2 = Instantiate(player2Prefab, worldPosition, Quaternion.identity, gameObject.transform);
-        player2.GetComponent<Unit>().MoveTo(board[player2Start.x,player2Start.y]);
-        board[player2Start.x,player2Start.y].contents.Add(player2);
+        for (int i = 0; i < unitCount; i++) {
+            GameObject p2unit = Instantiate(P2unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
+            p2.playerUnits.Add(p2unit);
+            board.Move(p2unit, player2Start);
+        }
 
-
-        
-        currentPlayer = player1.GetComponent<Player>();
-        currentPlayer.fogOfWar = GameObject.Find("Fog Player 1").GetComponent<Tilemap>();
-        otherPlayer = player2.GetComponent<Player>();
-        otherPlayer.fogOfWar = GameObject.Find("Fog Player 2").GetComponent<Tilemap>();
-
-        UpdateFogOfWar(player1.GetComponent<Player>().fogOfWar);
-        //UpdateFogOfWar(player2.GetComponent<Player>().fogOfWar);
-
-        //disable player 2
-        otherPlayer.camera.enabled = false;
-        otherPlayer.fogOfWar.gameObject.SetActive(false);
-        otherPlayer.gameObject.SetActive(false);
+        NextPlayer();
     }
 
     // Update is called once per frame
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
 
         newUnit.GetComponent<Unit>().MoveTo(board[boardCoords.x,boardCoords.y]);
         board[boardCoords.x,boardCoords.y].contents.Add(newUnit);
-        player.PlayerUnits.Add(newUnit);
+        player.playerUnits.Add(newUnit);
     }
 
     public Vector3Int GetPlayerCellPosition(GameObject player)
@@ -77,43 +79,37 @@ public class GameManager : MonoBehaviour
         return map.WorldToCell(player.transform.position);
     }
 
-    public void Move(GameObject movingPiece, Vector3Int tilePoint)
-    {
-        //Debug.Log("board points ");
-        board.Move(movingPiece, board.CoordsTilemapToBoard(tilePoint));
-        NextPlayer();
-    }
-
     public void NextPlayer()
     {
-
         Player tmpPlayer = currentPlayer;
 
-        currentPlayer.camera.enabled = false;
         currentPlayer.fogOfWar.gameObject.SetActive(false);
-        currentPlayer.gameObject.SetActive(false);
+        foreach(GameObject unit in currentPlayer.playerUnits) {
+            unit.SetActive(false);
+        }
 
-        otherPlayer.camera.enabled = true;
         otherPlayer.fogOfWar.gameObject.SetActive(true);
-        otherPlayer.gameObject.SetActive(true);
+        foreach(GameObject unit in otherPlayer.playerUnits) {
+            unit.SetActive(true);
+        }
 
         currentPlayer = otherPlayer;
         otherPlayer = tmpPlayer;
 
-        //Debug.Log(currentPlayer.name);
-
-        foreach( GameObject g in currentPlayer.visibleUnits)
+        foreach(Vector2Int tile in currentPlayer.visibleTiles)
         {
-            g.SetActive(true);
+            Debug.Log(tile);
+            foreach(GameObject unit in board[tile.x,tile.y].contents) {
+                unit.SetActive(true);
+            }
         }
-
-        UpdateFogOfWar(currentPlayer.fogOfWar);
     }
 
-    void UpdateFogOfWar(Tilemap playerFog)
+    public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)
     {
-        Vector3Int currentPlayerTile = playerFog.WorldToCell(currentPlayer.transform.position);
-        Vector2Int boardPlayerTile = board.CoordsTilemapToBoard(currentPlayerTile);
+        // Takes in input that is Board Coordinates
+        Vector2Int boardPlayerTile = newLocation;
+        Vector3Int currentPlayerTile = board.CoordsBoardToTilemap(newLocation);
 
         //Clear the surrounding tiles
         (int,int)[] allNeighbors = new (int,int)[] {(0,0),(-1,0),(1,0),(0,-1),(0,1),(0,0),(0,0)};
@@ -121,23 +117,18 @@ public class GameManager : MonoBehaviour
         allNeighbors[6] = currentPlayerTile.y %2 == 0 ? (-1,-1) : (1,-1);
 
         foreach((int,int) neighbor in allNeighbors) {
-            playerFog.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
+            Vector3Int tileCoords = currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0);
+            playerFog.SetTile(tileCoords, null);
 
-            if(board[boardPlayerTile.x + neighbor.Item1, boardPlayerTile.y + neighbor.Item2] != null )
-            {
-                foreach(GameObject g in board[boardPlayerTile.x + neighbor.Item1, boardPlayerTile.y + neighbor.Item2].contents)
-                {
-                    currentPlayer.visibleUnits.Add(g);
-                    g.SetActive(true);
-                }
-            }
+            Vector2Int boardCoords = board.CoordsTilemapToBoard(tileCoords);
+            currentPlayer.visibleTiles.Add(board.CoordsTilemapToBoard(tileCoords));
         }
 
     }
 
     public bool DoesBelongToPlayer(GameObject unit)
     {
-        return currentPlayer.PlayerUnits.Contains(unit);
+        return currentPlayer.playerUnits.Contains(unit);
     }
 
     #if UNITY_EDITOR

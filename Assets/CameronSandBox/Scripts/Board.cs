@@ -9,15 +9,18 @@ public class Board : MonoBehaviour
     private MapTile[,] tiles;
     private MapTile oceanTile; // Prefab for oceantile, which we consider out of bounds stuff to be
     private Tilemap map;
+    private GameManager gameManager;
 
     public int numCols;
     public int numRows;
+
     // Using a single number for each of these will technically result in a skew diamond overall map
     // But I figure we can just overshoot and have the camera not reach the edge
     // the excess will just be empty ocean tiles that you never see so. whatever
 
     void Start() {
         map = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
         tiles = new MapTile[numRows, numCols];
         int tileCount = 0;
@@ -68,12 +71,29 @@ public class Board : MonoBehaviour
 
     public void Move(GameObject movingPiece, Vector2Int newCoords) {
         Vector3Int tilePoint = CoordsBoardToTilemap(newCoords);
-        //foreach(GameObject movingPiece in movingPieces) {
+        MapTile oldLocation = null;
 
+        if (movingPiece.GetComponent<Unit>().location != null) {
+            oldLocation = movingPiece.GetComponent<Unit>().location;
+        }
         movingPiece.GetComponent<Unit>().MoveTo(this[newCoords.x,newCoords.y]);
-        movingPiece.transform.position = map.CellToWorld(tilePoint);
 
-        //}
+        Arrange(this[newCoords.x,newCoords.y].contents,map.CellToWorld(tilePoint));
+        if (oldLocation != null) {
+            Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].contents,map.CellToWorld(oldLocation.tileCoords));
+        }
+        
+        Debug.Log(gameManager.currentPlayer.name);
+        gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
+    }
+
+    void Arrange(List<GameObject> toArrage, Vector2 destination) {
+        float xMin = destination.x - 0.5f;
+        float xRange = 1f;
+        float xInc = xRange/(toArrage.Count+1);
+        for (int i = 0; i < toArrage.Count; i++) {
+            toArrage[i].transform.position = new Vector3(xMin + xInc*(i+1),destination.y,0);
+        }
     }
 
     public Vector2[] getNeighbors(Vector2 centerCoord) {

@@ -23,6 +23,7 @@ public class Unit : MonoBehaviour
     }
 
     public void MoveTo(MapTile newLocation) {
+        // Try not to call this directly. Use Board.Move() which calls this but also does transform stuff
         if (location != null) location.contents.Remove(gameObject);
         location = newLocation;
         location.contents.Add(gameObject);

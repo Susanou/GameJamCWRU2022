@@ -7,17 +7,17 @@ public class Player : MonoBehaviour
 
     public int visibility;
     public Tilemap fogOfWar;
-    public Camera camera;
+    public string name;
 
-    [HideInInspector] public List<GameObject> PlayerUnits;
+    [HideInInspector] public List<Vector2Int> visibleTiles;
+    [HideInInspector] public List<GameObject> playerUnits;
     [HideInInspector] public List<GameObject> visibleUnits; 
 
     void Start()
     {
         visibility = 1;
         visibleUnits = new List<GameObject>();
-        PlayerUnits = new List<GameObject>();
-        PlayerUnits.Add(this.gameObject);
+        playerUnits = new List<GameObject>();
     }
 
 }

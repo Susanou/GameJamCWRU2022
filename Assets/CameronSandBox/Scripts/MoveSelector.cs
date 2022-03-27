@@ -7,11 +7,14 @@ using UnityEngine.InputSystem;
 public class MoveSelector : MonoBehaviour
 {
     private int unitsMask;
-    private int UIMask;
+    private int p1Mask;
+    private int p2Mask;
 
     private GameObject tileHighlight;
     private List<GameObject> movingPieces = new List<GameObject>();
-    private bool selected;
+    private Board board;
+
+    private GameManager manager;
 
     public Text toggle;
 
@@ -19,9 +22,10 @@ public class MoveSelector : MonoBehaviour
     void Start()
     {
         this.enabled = false;
-        selected = false;
-        unitsMask  = LayerMask.GetMask("Units");
-        UIMask  = LayerMask.GetMask("UI");
+        p1Mask  = LayerMask.GetMask("Player1");
+        p2Mask  = LayerMask.GetMask("Player2");
+        manager = GameManager.instance;
+        board = GameObject.Find("Grid").GetComponent<Board>();
     }
 
     // Update is called once per frame
@@ -43,29 +47,30 @@ public class MoveSelector : MonoBehaviour
             {
                 Vector3 point = hit.point;
 
-                Vector3Int currentCell = GameManager.instance.map.WorldToCell(point);
+                Vector3Int currentCell = manager.map.WorldToCell(point);
                 foreach (GameObject movingPiece in movingPieces) {
-                    GameManager.instance.Move(movingPiece, currentCell);
+                    board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
                 }
-                selected = true;
+                manager.NextPlayer();
                 ExitState();
             }
         }
         else {
             Vector2 ray = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            
-            RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, distance: Mathf.Infinity);
+
+            unitsMask = manager.currentPlayer.name == "player1" ? p1Mask : p2Mask;
+
+            RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, distance: Mathf.Infinity, layerMask: unitsMask);
+
             if(hit) {
                 GameObject isHit = hit.collider.gameObject;
-                //Debug.Log(isHit);
-                if(isHit.tag == "Unit" && GameManager.instance.DoesBelongToPlayer(isHit)) SelectUnit(isHit);
+                if(isHit.tag == "Unit") SelectUnit(isHit);
             }
         }
     }
 
     void OnHitEnter()
     {
-        //Debug.Log("Hit Enter!");
         if(!this.enabled) EnterState();
     }
 
@@ -83,7 +88,6 @@ public class MoveSelector : MonoBehaviour
     public void EnterState()
     {
         this.enabled = true;
-        selected = false;
         toggle.text = "Selecting Destination";
     }
     
@@ -94,7 +98,6 @@ public class MoveSelector : MonoBehaviour
             movingPiece.GetComponent<Unit>().Deselect();
         }
         movingPieces = new List<GameObject>();
-        selected = false;
         toggle.text = "Selecting Units";
     }
 }

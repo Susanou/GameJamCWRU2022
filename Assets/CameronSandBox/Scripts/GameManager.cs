@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         otherPlayer = player2.GetComponent<Player>();
 
         UpdateFogOfWar(player1.GetComponent<Player>().fogOfWar);
-        UpdateFogOfWar(player2.GetComponent<Player>().fogOfWar);
+        //UpdateFogOfWar(player2.GetComponent<Player>().fogOfWar);
 
         //disable player 2
         otherPlayer.camera.enabled = false;
@@ -64,7 +64,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("board points ");
         board.Move(movingPiece, board.CoordsTilemapToBoard(tilePoint));
-        UpdateFogOfWar(currentPlayer.fogOfWar);
         NextPlayer();
     }
 
@@ -83,6 +82,15 @@ public class GameManager : MonoBehaviour
 
         currentPlayer = otherPlayer;
         otherPlayer = tmpPlayer;
+
+        foreach(GameObject g in currentPlayer.visibleUnits)
+        {
+            Debug.Log("Setting active");
+            g.SetActive(true);
+        }
+
+        Debug.Log(currentPlayer.name);
+        UpdateFogOfWar(currentPlayer.fogOfWar);
     }
 
     void UpdateFogOfWar(Tilemap playerFog)
@@ -96,6 +104,15 @@ public class GameManager : MonoBehaviour
 
         foreach((int,int) neighbor in allNeighbors) {
             playerFog.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
+
+            if(board[neighbor.Item1, neighbor.Item2] != null )
+            {
+                Debug.Log(board[neighbor.Item1, neighbor.Item2].contents);
+                foreach(GameObject g in board[neighbor.Item1, neighbor.Item2].contents)
+                {
+                    currentPlayer.visibleUnits.Add(g);
+                }
+            }
         }
 
     }

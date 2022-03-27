@@ -134,9 +134,9 @@ GameObject:
   - component: {fileID: 18206437}
   - component: {fileID: 18206436}
   - component: {fileID: 18206435}
+  - component: {fileID: 18206434}
   - component: {fileID: 18206433}
   - component: {fileID: 18206432}
-  - component: {fileID: 18206434}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Unit
@@ -156,8 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b244a13e92a70478ddc5b6bc0c45aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visibility: 0
   fogOfWar: {fileID: 806122809}
   camera: {fileID: 608366184}
+  visibleUnits: []
 --- !u!114 &18206433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,7 +295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18206431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.97, y: 3.44, z: -0.00390625}
+  m_LocalPosition: {x: -6.02, y: -3.26, z: -0.00390625}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1193853631}
@@ -405,7 +407,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -516,10 +518,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 0cfb235cd6b9c214492d75b7e1ef3846, type: 3}
   - m_RefCount: 5
     m_Data: {fileID: 21300000, guid: a8b8ff0561fbf6b4789c8b488510295c, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 9bff1f17dd987824383ff7f836f861be, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 9bff1f17dd987824383ff7f836f861be, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 11
     m_Data:
@@ -782,8 +784,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b244a13e92a70478ddc5b6bc0c45aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visibility: 0
   fogOfWar: {fileID: 1848727097}
   camera: {fileID: 519420031}
+  visibleUnits: []
 --- !u!50 &133682338
 Rigidbody2D:
   serializedVersion: 4
@@ -921,9 +925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bf288db0e40ba4fb651be5e23b36b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveLocationPrefab: {fileID: 0}
-  tileHighlightPrefab: {fileID: 0}
-  attackLocationPrefab: {fileID: 0}
   toggle: {fileID: 656024639}
 --- !u!114 &188146368
 MonoBehaviour:
@@ -1231,7 +1232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &806122806
 Transform:
   m_ObjectHideFlags: 0
@@ -8798,6 +8799,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 0
       m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -9, y: -5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -18547,11 +18558,15 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 1724
     m_Data: {fileID: 11400000, guid: 61ef37816df33a547987e10af73896e0, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 280139e3b62bbc847a41b67839fb86ea, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1724
     m_Data: {fileID: 21300000, guid: 0cd0f54ed962ddd4eafb33a8b06b94e0, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 54d373d41d6e7dc4c89d9d1c7e4fadfe, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1724
+  - m_RefCount: 1725
     m_Data:
       e00: 1
       e01: 0
@@ -18570,7 +18585,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1724
+  - m_RefCount: 1725
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1

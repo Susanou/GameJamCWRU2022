@@ -6,11 +6,6 @@ using UnityEngine.InputSystem;
 
 public class MoveSelector : MonoBehaviour
 {
-
-    public GameObject moveLocationPrefab;
-    public GameObject tileHighlightPrefab;
-    public GameObject attackLocationPrefab;
-
     private int unitsMask;
     private int UIMask;
 
@@ -27,8 +22,6 @@ public class MoveSelector : MonoBehaviour
         selected = false;
         unitsMask  = LayerMask.GetMask("Units");
         UIMask  = LayerMask.GetMask("UI");
-        //tileHighlight = Instantiate(tileHighlightPrefab, Geometry.PointFromGrid(new Vector2Int(0, 0)), Quaternion.identity, gameObject.transform);
-        //tileHighlight.SetActive(false);
     }
 
     // Update is called once per frame
@@ -72,7 +65,7 @@ public class MoveSelector : MonoBehaviour
 
     void OnHitEnter()
     {
-        Debug.Log("Hit Enter!");
+        //Debug.Log("Hit Enter!");
         if(!this.enabled) EnterState();
     }
 

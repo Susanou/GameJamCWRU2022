@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
         if (location != null) location.contents.Remove(gameObject);
         location = newLocation;
         location.contents.Add(gameObject);
+        //Debug.Log(location.contents.ToArray()[0]);
     }
 
     public void Select() {

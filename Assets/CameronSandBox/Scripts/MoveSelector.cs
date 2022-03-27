@@ -57,8 +57,8 @@ public class MoveSelector : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, distance: Mathf.Infinity);
             if(hit) {
                 GameObject isHit = hit.collider.gameObject;
-                Debug.Log(isHit);
-                if(isHit.tag == "Unit") SelectUnit(isHit);
+                //Debug.Log(isHit);
+                if(isHit.tag == "Unit" && GameManager.instance.DoesBelongToPlayer(isHit)) SelectUnit(isHit);
             }
         }
     }

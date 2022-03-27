@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Board : MonoBehaviour
 {
@@ -83,5 +85,10 @@ public class Board : MonoBehaviour
         neighbors[4] = new Vector2(centerCoord.x+1,centerCoord.y-1);
         neighbors[5] = new Vector2(centerCoord.x-1,centerCoord.y+1);
         return(neighbors);
+    }
+
+    public List<GameObject> getTileContent(Vector2Int coordinates)
+    {
+        return this[coordinates.x, coordinates.y].contents;
     }
 }

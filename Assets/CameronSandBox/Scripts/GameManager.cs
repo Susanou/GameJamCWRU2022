@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void Move(GameObject movingPiece, Vector3Int tilePoint)
     {
-        Debug.Log("board points ");
+        //Debug.Log("board points ");
         board.Move(movingPiece, board.CoordsTilemapToBoard(tilePoint));
         NextPlayer();
     }
@@ -83,19 +83,20 @@ public class GameManager : MonoBehaviour
         currentPlayer = otherPlayer;
         otherPlayer = tmpPlayer;
 
-        foreach(GameObject g in currentPlayer.visibleUnits)
+        //Debug.Log(currentPlayer.name);
+
+        foreach( GameObject g in currentPlayer.visibleUnits)
         {
-            Debug.Log("Setting active");
             g.SetActive(true);
         }
 
-        Debug.Log(currentPlayer.name);
         UpdateFogOfWar(currentPlayer.fogOfWar);
     }
 
     void UpdateFogOfWar(Tilemap playerFog)
     {
         Vector3Int currentPlayerTile = playerFog.WorldToCell(currentPlayer.transform.position);
+        Vector2Int boardPlayerTile = board.CoordsTilemapToBoard(currentPlayerTile);
 
         //Clear the surrounding tiles
         (int,int)[] allNeighbors = new (int,int)[] {(0,0),(-1,0),(1,0),(0,-1),(0,1),(0,0),(0,0)};
@@ -105,15 +106,20 @@ public class GameManager : MonoBehaviour
         foreach((int,int) neighbor in allNeighbors) {
             playerFog.SetTile(currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0), null);
 
-            if(board[neighbor.Item1, neighbor.Item2] != null )
+            if(board[boardPlayerTile.x + neighbor.Item1, boardPlayerTile.y + neighbor.Item2] != null )
             {
-                Debug.Log(board[neighbor.Item1, neighbor.Item2].contents);
-                foreach(GameObject g in board[neighbor.Item1, neighbor.Item2].contents)
+                foreach(GameObject g in board[boardPlayerTile.x + neighbor.Item1, boardPlayerTile.y + neighbor.Item2].contents)
                 {
                     currentPlayer.visibleUnits.Add(g);
+                    g.SetActive(true);
                 }
             }
         }
 
+    }
+
+    public bool DoesBelongToPlayer(GameObject unit)
+    {
+        return currentPlayer.PlayerUnits.Contains(unit);
     }
 }

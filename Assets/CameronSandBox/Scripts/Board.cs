@@ -83,7 +83,6 @@ public class Board : MonoBehaviour
             Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].contents,map.CellToWorld(oldLocation.tileCoords));
         }
         
-        Debug.Log(gameManager.currentPlayer.name);
         gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
     }
 

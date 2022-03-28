@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         GameObject newUnit = Instantiate(unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
 
         newUnit.GetComponent<Unit>().MoveTo(board[boardCoords.x,boardCoords.y]);
-        board[boardCoords.x,boardCoords.y].contents.Add(newUnit);
+        board[boardCoords.x,boardCoords.y].AddUnit(newUnit);
         player.playerUnits.Add(newUnit);
     }
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
         foreach(Vector2Int tile in currentPlayer.visibleTiles)
         {
-            Debug.Log(tile);
+            //Debug.Log(tile);
             foreach(GameObject unit in board[tile.x,tile.y].contents) {
                 unit.SetActive(true);
             }

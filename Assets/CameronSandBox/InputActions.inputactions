@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "HitEnter",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "29cb50d6-362b-4964-a3c2-2f2c0c7ef1d2",
                     "expectedControlType": "Button",
                     "processors": "",

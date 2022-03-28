@@ -9,6 +9,11 @@ public class Unit : MonoBehaviour
     private bool selected = false;
     private SpriteRenderer sprite;
 
+    public string owner;
+
+    public int attack;
+    public int defense;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +31,7 @@ public class Unit : MonoBehaviour
         // Try not to call this directly. Use Board.Move() which calls this but also does transform stuff
         if (location != null) location.contents.Remove(gameObject);
         location = newLocation;
-        location.contents.Add(gameObject);
+        location.AddUnit(gameObject);
         //Debug.Log(location.contents.ToArray()[0]);
     }
 

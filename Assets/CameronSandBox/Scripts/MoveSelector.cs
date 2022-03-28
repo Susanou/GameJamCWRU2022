@@ -52,7 +52,16 @@ public class MoveSelector : MonoBehaviour
                 Vector3Int currentCell = manager.map.WorldToCell(point);
                 Vector2Int boardCell = board.CoordsTilemapToBoard(currentCell);
 
-                if(possibleMoves.Contains(boardCell))
+                int attackTotal = 0;
+                foreach(GameObject movingPiece in movingPieces) {
+                    attackTotal += movingPiece.GetComponent<Unit>().attack;
+                }
+
+                Debug.Log(board[boardCell.x,boardCell.y].owner == manager.currentPlayer.name);
+                Debug.Log(attackTotal >= board[boardCell.x,boardCell.y].cost);
+                bool canConquer = attackTotal >= board[boardCell.x,boardCell.y].cost || board[boardCell.x,boardCell.y].owner == manager.currentPlayer.name;
+
+                if(possibleMoves.Contains(boardCell) && canConquer)
                 {
                     foreach (GameObject movingPiece in movingPieces) {
                         board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
@@ -60,7 +69,9 @@ public class MoveSelector : MonoBehaviour
                     manager.NextPlayer();
                     ExitState();
                 }
-                
+                else {
+                    Debug.Log("invalid move");
+                }
             }
         }
         else {
@@ -91,6 +102,7 @@ public class MoveSelector : MonoBehaviour
     void OnHitEnter()
     {
         if(!this.enabled) EnterState();
+        else ExitState();
     }
 
     public void SelectUnit(GameObject unit) {

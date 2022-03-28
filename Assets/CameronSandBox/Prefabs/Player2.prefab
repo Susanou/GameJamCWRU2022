@@ -244,3 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de8a3793a90641db8958c339007fb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  owner: player2
+  attack: 1
+  defense: 0

@@ -13,11 +13,23 @@ public class Player : MonoBehaviour
     [HideInInspector] public List<GameObject> playerUnits;
     [HideInInspector] public List<GameObject> visibleUnits; 
 
+    private int score;
+
     void Start()
     {
         visibility = 1;
         visibleUnits = new List<GameObject>();
         playerUnits = new List<GameObject>();
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void AddScore(int gain)
+    {
+        score += gain;
     }
 
 }

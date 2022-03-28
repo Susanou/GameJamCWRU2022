@@ -122,6 +122,12 @@ public class MoveSelector : MonoBehaviour
         this.enabled = true;
         toggle.text = "Selecting Destination";
     }
+
+    public void EndState(Player winner)
+    {
+        this.enabled = false;
+        toggle.text = "The winner is" + winner.name;
+    }
     
     private void ExitState()
     {

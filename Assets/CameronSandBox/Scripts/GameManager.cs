@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,10 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     public Tilemap map;
-    
+
+    public int maxTurns;
+    private int currentTurn;
+
     public Vector2Int player1Start;
     public Vector2Int player2Start;
 
@@ -55,6 +59,8 @@ public class GameManager : MonoBehaviour
             board.Move(p2unit, player2Start);
         }
 
+        currentTurn = 0;
+
         NextPlayer();
     }
 
@@ -81,28 +87,52 @@ public class GameManager : MonoBehaviour
 
     public void NextPlayer()
     {
-        Player tmpPlayer = currentPlayer;
+        currentTurn++;
 
-        currentPlayer.fogOfWar.gameObject.SetActive(false);
-        foreach(GameObject unit in currentPlayer.playerUnits) {
-            unit.SetActive(false);
-        }
-
-        otherPlayer.fogOfWar.gameObject.SetActive(true);
-        foreach(GameObject unit in otherPlayer.playerUnits) {
-            unit.SetActive(true);
-        }
-
-        currentPlayer = otherPlayer;
-        otherPlayer = tmpPlayer;
-
-        foreach(Vector2Int tile in currentPlayer.visibleTiles)
+        if(currentTurn > maxTurns)
         {
-            //Debug.Log(tile);
-            foreach(GameObject unit in board[tile.x,tile.y].GetContents()) {
+            Debug.Log("Game Ended!");
+
+            //Show the whole map
+            currentPlayer.fogOfWar.gameObject.SetActive(false);
+            foreach(GameObject unit in currentPlayer.playerUnits) {
                 unit.SetActive(true);
             }
+
+            otherPlayer.fogOfWar.gameObject.SetActive(false);
+            foreach(GameObject unit in otherPlayer.playerUnits) {
+                unit.SetActive(true);
+            }
+
+            //MoveSelector.EndState(currentPlayer);
+
+            currentPlayer = null;
         }
+        else{
+            Player tmpPlayer = currentPlayer;
+
+            currentPlayer.fogOfWar.gameObject.SetActive(false);
+            foreach(GameObject unit in currentPlayer.playerUnits) {
+                unit.SetActive(false);
+            }
+
+            otherPlayer.fogOfWar.gameObject.SetActive(true);
+            foreach(GameObject unit in otherPlayer.playerUnits) {
+                unit.SetActive(true);
+            }
+
+            currentPlayer = otherPlayer;
+            otherPlayer = tmpPlayer;
+
+            foreach(Vector2Int tile in currentPlayer.visibleTiles)
+            {
+                //Debug.Log(tile);
+                foreach(GameObject unit in board[tile.x,tile.y].GetContents()) {
+                    unit.SetActive(true);
+                }
+            }
+        }
+        
     }
 
     public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)

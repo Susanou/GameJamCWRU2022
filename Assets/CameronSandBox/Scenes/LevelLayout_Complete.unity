@@ -64558,6 +64558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 874805567}
+  maxTurns: 10
   player1Start: {x: 9, y: 10}
   player2Start: {x: 17, y: 14}
   P1unitPrefab: {fileID: 8663352934692540038, guid: 8da3dad99a117084990fd70ece056a79, type: 3}

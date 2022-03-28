@@ -18,6 +18,8 @@ public class MoveSelector : MonoBehaviour
 
     public Text toggle;
 
+    private List<Vector2Int> possibleMoves = new List<Vector2Int>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,11 +50,17 @@ public class MoveSelector : MonoBehaviour
                 Vector3 point = hit.point;
 
                 Vector3Int currentCell = manager.map.WorldToCell(point);
-                foreach (GameObject movingPiece in movingPieces) {
-                    board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
+                Vector2Int boardCell = board.CoordsTilemapToBoard(currentCell);
+
+                if(possibleMoves.Contains(boardCell))
+                {
+                    foreach (GameObject movingPiece in movingPieces) {
+                        board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
+                    }
+                    manager.NextPlayer();
+                    ExitState();
                 }
-                manager.NextPlayer();
-                ExitState();
+                
             }
         }
         else {
@@ -64,7 +72,18 @@ public class MoveSelector : MonoBehaviour
 
             if(hit) {
                 GameObject isHit = hit.collider.gameObject;
-                if(isHit.tag == "Unit") SelectUnit(isHit);
+                if(isHit.tag == "Unit") 
+                {
+                    SelectUnit(isHit);
+
+                    Vector3Int currentCell = manager.map.WorldToCell(isHit.transform.position);
+                    Vector2Int boardCell = board.CoordsTilemapToBoard(currentCell);
+
+                    foreach (Vector2Int p in board.getNeighbors(boardCell))
+                    {
+                        possibleMoves.Add(p);
+                    }
+                }
             }
         }
     }
@@ -99,5 +118,6 @@ public class MoveSelector : MonoBehaviour
         }
         movingPieces = new List<GameObject>();
         toggle.text = "Selecting Units";
+        possibleMoves = new List<Vector2Int>();
     }
 }

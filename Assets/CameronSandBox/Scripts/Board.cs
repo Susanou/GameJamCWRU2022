@@ -96,14 +96,14 @@ public class Board : MonoBehaviour
         }
     }
 
-    public Vector2[] getNeighbors(Vector2 centerCoord) {
-        Vector2[] neighbors = new Vector2[6];
-        neighbors[0] = new Vector2(centerCoord.x-1,centerCoord.y);
-        neighbors[1] = new Vector2(centerCoord.x+1,centerCoord.y);
-        neighbors[2] = new Vector2(centerCoord.x,centerCoord.y-1);
-        neighbors[3] = new Vector2(centerCoord.x,centerCoord.y+1);
-        neighbors[4] = new Vector2(centerCoord.x+1,centerCoord.y-1);
-        neighbors[5] = new Vector2(centerCoord.x-1,centerCoord.y+1);
+    public Vector2Int[] getNeighbors(Vector2Int centerCoord) {
+        Vector2Int[] neighbors = new Vector2Int[6];
+        neighbors[0] = new Vector2Int(centerCoord.x-1,centerCoord.y);
+        neighbors[1] = new Vector2Int(centerCoord.x+1,centerCoord.y);
+        neighbors[2] = new Vector2Int(centerCoord.x,centerCoord.y-1);
+        neighbors[3] = new Vector2Int(centerCoord.x,centerCoord.y+1);
+        neighbors[4] = new Vector2Int(centerCoord.x+1,centerCoord.y-1);
+        neighbors[5] = new Vector2Int(centerCoord.x-1,centerCoord.y+1);
         return(neighbors);
     }
 

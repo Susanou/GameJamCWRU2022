@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         foreach(Vector2Int tile in currentPlayer.visibleTiles)
         {
             //Debug.Log(tile);
-            foreach(GameObject unit in board[tile.x,tile.y].contents) {
+            foreach(GameObject unit in board[tile.x,tile.y].GetContents()) {
                 unit.SetActive(true);
             }
         }

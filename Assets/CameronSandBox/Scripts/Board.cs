@@ -78,9 +78,9 @@ public class Board : MonoBehaviour
         }
         movingPiece.GetComponent<Unit>().MoveTo(this[newCoords.x,newCoords.y]);
 
-        Arrange(this[newCoords.x,newCoords.y].contents,map.CellToWorld(tilePoint));
+        Arrange(this[newCoords.x,newCoords.y].GetContents(),map.CellToWorld(tilePoint));
         if (oldLocation != null) {
-            Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].contents,map.CellToWorld(oldLocation.tileCoords));
+            Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].GetContents(),map.CellToWorld(oldLocation.tileCoords));
         }
         
         gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
@@ -108,6 +108,6 @@ public class Board : MonoBehaviour
 
     public List<GameObject> getTileContent(Vector2Int coordinates)
     {
-        return this[coordinates.x, coordinates.y].contents;
+        return this[coordinates.x, coordinates.y].GetContents();
     }
 }

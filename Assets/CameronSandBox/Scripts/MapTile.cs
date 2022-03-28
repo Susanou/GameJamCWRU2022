@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapTile
 {
-    public List<GameObject> contents;
+    private List<GameObject> contents;
     public Board board;
     public Vector2Int boardCoords;
     public Vector3Int tileCoords;
@@ -28,10 +28,24 @@ public class MapTile
         else owner = null;
     }
 
+    public bool IsEmpty() {
+        return (contents.Count == 0);
+    }
+
+    public void RemoveUnit(GameObject unit) {
+        contents.Remove(unit);
+        UpdateCost();
+        UpdateOwner();
+    }
+
     public void AddUnit(GameObject unit) {
         contents.Add(unit);
         UpdateCost();
         UpdateOwner();
+    }
+
+    public List<GameObject> GetContents() {
+        return(contents);
     }
 
     public MapTile(Board theBoard) {

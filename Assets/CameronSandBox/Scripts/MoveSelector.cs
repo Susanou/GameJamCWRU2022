@@ -63,6 +63,7 @@ public class MoveSelector : MonoBehaviour
 
                 if(possibleMoves.Contains(boardCell) && canConquer)
                 {
+                    board.ConquerRegion(boardCell);
                     foreach (GameObject movingPiece in movingPieces) {
                         board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
                     }

@@ -126,6 +126,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RemoveUnit(GameObject unit) {
+        if(p1.playerUnits.Contains(unit)) p1.playerUnits.Remove(unit);
+        else if(p2.playerUnits.Contains(unit)) p2.playerUnits.Remove(unit);
+        Destroy(unit,0.5f);
+    }
+
     public bool DoesBelongToPlayer(GameObject unit)
     {
         return currentPlayer.playerUnits.Contains(unit);

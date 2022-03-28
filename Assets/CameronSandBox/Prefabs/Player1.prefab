@@ -161,8 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: player1
+  survivalRate: 0.75
   attack: 1
-  defense: 0
+  defense: 1
 --- !u!1 &8663352934752511052
 GameObject:
   m_ObjectHideFlags: 0

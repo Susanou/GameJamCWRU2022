@@ -245,5 +245,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: player2
+  survivalRate: 0.75
   attack: 1
-  defense: 0
+  defense: 1

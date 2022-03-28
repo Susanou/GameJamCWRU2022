@@ -11,6 +11,8 @@ public class Unit : MonoBehaviour
 
     public string owner;
 
+    public float survivalRate;
+
     public int attack;
     public int defense;
 

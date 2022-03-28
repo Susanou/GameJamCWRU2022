@@ -14,6 +14,9 @@ public class Board : MonoBehaviour
     public int numCols;
     public int numRows;
 
+    public Vector2Int player1Start;
+    public Vector2Int player2Start;
+
     // Using a single number for each of these will technically result in a skew diamond overall map
     // But I figure we can just overshoot and have the camera not reach the edge
     // the excess will just be empty ocean tiles that you never see so. whatever
@@ -35,6 +38,8 @@ public class Board : MonoBehaviour
             }
             if (numCols %2 == 0) tileCount += 1;
         }
+        player1Start = gameManager.player1Start;
+        player2Start = gameManager.player2Start;
     }
 
     public MapTile this[int x, int y]
@@ -83,13 +88,26 @@ public class Board : MonoBehaviour
             Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].GetContents(),map.CellToWorld(oldLocation.tileCoords));
         }
         
-        gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
+        if(movingPiece.GetComponent<Unit>().owner == gameManager.currentPlayer.name) gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
+    }
+
+    public void ConquerRegion(Vector2Int regionCoords) {
+        Player player = gameManager.currentPlayer;
+        Vector2Int otherPlayerStart = (player.name == "player1") ? player2Start : player1Start;
+        if (this[regionCoords.x,regionCoords.y].owner != null && this[regionCoords.x,regionCoords.y].owner != player.name) {
+            List<GameObject> toResolve =  new List<GameObject>(this[regionCoords.x,regionCoords.y].GetContents());
+            foreach(GameObject unit in toResolve) {
+                if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) Move(unit,otherPlayerStart);
+                else gameManager.RemoveUnit(unit);
+            }
+        }
     }
 
     void Arrange(List<GameObject> toArrage, Vector2 destination) {
         float xMin = destination.x - 0.5f;
         float xRange = 1f;
         float xInc = xRange/(toArrage.Count+1);
+
         for (int i = 0; i < toArrage.Count; i++) {
             toArrage[i].transform.position = new Vector3(xMin + xInc*(i+1),destination.y,0);
         }

@@ -530,6 +530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numCols: 30
   numRows: 30
+  player1Start: {x: 0, y: 0}
+  player2Start: {x: 0, y: 0}
 --- !u!1 &227928002
 GameObject:
   m_ObjectHideFlags: 0
@@ -64546,11 +64548,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 874805567}
-  player1Start: {x: 7, y: 6}
-  player2Start: {x: 16, y: 17}
+  player1Start: {x: 9, y: 10}
+  player2Start: {x: 17, y: 14}
   P1unitPrefab: {fileID: 8663352934692540038, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
   P2unitPrefab: {fileID: 9155417897262506110, guid: 593edfffda8b0eb4b895936758aa9c46, type: 3}
-  unitCount: 3
+  unitCount: 5
   p1: {fileID: 227928003}
   p2: {fileID: 1656886594}
   currentPlayer: {fileID: 0}

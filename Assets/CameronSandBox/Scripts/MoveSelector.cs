@@ -16,7 +16,9 @@ public class MoveSelector : MonoBehaviour
 
     private GameManager manager;
 
+    public float waitTime;
     public Text toggle;
+    public Image image;
 
     private List<Vector2Int> possibleMoves = new List<Vector2Int>();
 
@@ -28,6 +30,7 @@ public class MoveSelector : MonoBehaviour
         p2Mask  = LayerMask.GetMask("Player2");
         manager = GameManager.instance;
         board = GameObject.Find("Grid").GetComponent<Board>();
+        image.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -68,7 +71,7 @@ public class MoveSelector : MonoBehaviour
                         board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
                     }
                     manager.NextPlayer();
-                    ExitState();
+                    StartCoroutine(ExitState());
                 }
                 else {
                     Debug.Log("invalid move");
@@ -129,12 +132,19 @@ public class MoveSelector : MonoBehaviour
         toggle.text = "The winner is" + winner.name;
     }
     
-    private void ExitState()
+    private IEnumerator ExitState()
     {
         this.enabled = false;
         foreach (GameObject movingPiece in movingPieces) {
             movingPiece.GetComponent<Unit>().Deselect();
         }
+
+        image.gameObject.SetActive(true);
+        toggle.text = "Change player";
+
+        yield return new WaitForSeconds(waitTime);
+
+        image.gameObject.SetActive(false);
         movingPieces = new List<GameObject>();
         toggle.text = "Selecting Units";
         possibleMoves = new List<Vector2Int>();

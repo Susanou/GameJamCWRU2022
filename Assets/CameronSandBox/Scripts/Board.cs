@@ -109,7 +109,7 @@ public class Board : MonoBehaviour
         float xInc = xRange/(toArrage.Count+1);
 
         for (int i = 0; i < toArrage.Count; i++) {
-            toArrage[i].transform.position = new Vector3(xMin + xInc*(i+1),destination.y,0);
+            toArrage[i].transform.position = new Vector3(xMin + xInc*(i+1),destination.y-0.05f,0);
         }
     }
 

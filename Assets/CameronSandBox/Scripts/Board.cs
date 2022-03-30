@@ -9,6 +9,7 @@ public class Board : MonoBehaviour
     private MapTile[,] tiles;
     private MapTile oceanTile; // Prefab for oceantile, which we consider out of bounds stuff to be
     private Tilemap map;
+    private Tilemap highlight;
     private GameManager gameManager;
 
     public int numCols;
@@ -17,6 +18,9 @@ public class Board : MonoBehaviour
     public Vector2Int player1Start;
     public Vector2Int player2Start;
 
+    public TileBase highlightTile;
+
+
     // Using a single number for each of these will technically result in a skew diamond overall map
     // But I figure we can just overshoot and have the camera not reach the edge
     // the excess will just be empty ocean tiles that you never see so. whatever
@@ -24,6 +28,7 @@ public class Board : MonoBehaviour
     void Start() {
         map = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        highlight = GameObject.Find("Highlight Layer").GetComponent<Tilemap>();
         
         tiles = new MapTile[numRows, numCols];
         int tileCount = 0;
@@ -54,6 +59,16 @@ public class Board : MonoBehaviour
                 throw new System.Exception("Coordinates [" + x + ", " + y + "] are out of bounds but you're trying to set them");
             tiles[numCols - y - 1, x] = value;
         }
+    }
+
+    public void HighlightTiles(List<Vector2Int> tiles) {
+        foreach (Vector2Int tile in tiles) {
+            highlight.SetTile(CoordsBoardToTilemap(tile), highlightTile);
+        }
+    }
+
+    public void ClearHighlight() {
+        highlight.ClearAllTiles();
     }
 
     public Vector3Int CoordsBoardToTilemap(Vector2Int boardCoords) {
@@ -88,19 +103,7 @@ public class Board : MonoBehaviour
             Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].GetContents(),map.CellToWorld(oldLocation.tileCoords));
         }
         
-        if(movingPiece.GetComponent<Unit>().owner == gameManager.currentPlayer.name) gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
-    }
-
-    public void ConquerRegion(Vector2Int regionCoords) {
-        Player player = gameManager.currentPlayer;
-        Vector2Int otherPlayerStart = (player.name == "player1") ? player2Start : player1Start;
-        if (this[regionCoords.x,regionCoords.y].owner != null && this[regionCoords.x,regionCoords.y].owner != player.name) {
-            List<GameObject> toResolve =  new List<GameObject>(this[regionCoords.x,regionCoords.y].GetContents());
-            foreach(GameObject unit in toResolve) {
-                if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) Move(unit,otherPlayerStart);
-                else gameManager.RemoveUnit(unit);
-            }
-        }
+        if(movingPiece.GetComponent<Unit>().owner == gameManager.currentPlayer) gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
     }
 
     void Arrange(List<GameObject> toArrage, Vector2 destination) {

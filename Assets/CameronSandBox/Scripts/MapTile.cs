@@ -9,12 +9,12 @@ public class MapTile
     public Vector2Int boardCoords;
     public Vector3Int tileCoords;
 
-    public string owner = null;
+    public Player owner = null;
 
-    public int cost = 2;
+    public float cost = 2;
 
     private void UpdateCost() {
-        int newCost = 2;
+        float newCost = 2;
         foreach(GameObject unit in contents) {
             newCost += unit.GetComponent<Unit>().defense;
         }
@@ -23,9 +23,14 @@ public class MapTile
 
     private void UpdateOwner() {
         if (contents.Count > 0) {
+            if (contents[0].GetComponent<Unit>().owner == null) contents[0].GetComponent<Unit>().FindOwner();
             owner = contents[0].GetComponent<Unit>().owner;
+            if (!owner.playerTiles.Contains(this.boardCoords)) owner.playerTiles.Add(this.boardCoords);
         }
-        else owner = null;
+        else if (owner != null) {
+            owner.playerTiles.Remove(this.boardCoords);
+            owner = null;
+        }
     }
 
     public bool IsEmpty() {
@@ -57,6 +62,5 @@ public class MapTile
         boardCoords = coords;
         tileCoords = board.CoordsBoardToTilemap(coords);
     }
-
 
 }

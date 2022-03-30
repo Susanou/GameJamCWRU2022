@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8663352934692540093}
   - component: {fileID: 8663352934692540094}
   m_Layer: 10
-  m_Name: Player1
+  m_Name: P1unit
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de8a3793a90641db8958c339007fb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: player1
+  owner: {fileID: 2079649261903620157, guid: 9f0c3c95c95904bcdbca611807296e72, type: 3}
+  ownerName: Player1
   survivalRate: 0.75
   attack: 1
   defense: 1

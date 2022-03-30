@@ -10,16 +10,21 @@ public class Player : MonoBehaviour
     public string name;
 
     [HideInInspector] public List<Vector2Int> visibleTiles;
-    [HideInInspector] public List<GameObject> playerUnits;
     [HideInInspector] public List<GameObject> visibleUnits; 
+
+    [HideInInspector] public List<Vector2Int> playerTiles;
+    [HideInInspector] public List<GameObject> playerUnits;
 
     private int score;
 
     void Start()
     {
         visibility = 1;
+
         visibleUnits = new List<GameObject>();
         playerUnits = new List<GameObject>();
+        playerTiles = new List<Vector2Int>();
+        visibleTiles = new List<Vector2Int>();
     }
 
     public int GetScore()

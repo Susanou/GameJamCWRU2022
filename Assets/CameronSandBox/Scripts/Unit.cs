@@ -9,16 +9,20 @@ public class Unit : MonoBehaviour
     private bool selected = false;
     private SpriteRenderer sprite;
 
-    public string owner;
+    public Player owner;
+    public string ownerName;
 
     public float survivalRate;
 
-    public int attack;
-    public int defense;
+    public float attack;
+    public float defense;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (owner == null) {
+            owner = GameObject.Find(ownerName).GetComponent<Player>();
+        }
         moveSelector = GameObject.Find("Grid").GetComponent<MoveSelector>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
     }
@@ -27,6 +31,10 @@ public class Unit : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void FindOwner() {
+        owner = GameObject.Find(ownerName).GetComponent<Player>();
     }
 
     public void MoveTo(MapTile newLocation) {

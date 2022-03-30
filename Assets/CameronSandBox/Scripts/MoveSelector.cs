@@ -15,6 +15,7 @@ public class MoveSelector : MonoBehaviour
     private Board board;
 
     private GameManager manager;
+    private GameController controller;
 
     public Text toggle;
 
@@ -30,6 +31,7 @@ public class MoveSelector : MonoBehaviour
         p2Mask  = LayerMask.GetMask("Player2");
         manager = GameManager.instance;
         board = GameObject.Find("Grid").GetComponent<Board>();
+        controller = GameObject.Find("Grid").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -54,18 +56,9 @@ public class MoveSelector : MonoBehaviour
                     Vector3Int currentCell = manager.map.WorldToCell(point);
                     Vector2Int boardCell = board.CoordsTilemapToBoard(currentCell);
 
-                    int attackTotal = 0;
-                    foreach(GameObject movingPiece in movingPieces) {
-                        attackTotal += movingPiece.GetComponent<Unit>().attack;
-                    }
-
-                    Debug.Log(board[boardCell.x,boardCell.y].owner == manager.currentPlayer.name);
-                    Debug.Log(attackTotal >= board[boardCell.x,boardCell.y].cost);
-                    bool canConquer = attackTotal >= board[boardCell.x,boardCell.y].cost || board[boardCell.x,boardCell.y].owner == manager.currentPlayer.name;
-
-                    if(possibleMoves.Contains(boardCell) && canConquer)
+                    if(possibleMoves.Contains(boardCell))
                     {
-                        board.ConquerRegion(boardCell);
+                        controller.ConquerRegion(movingPieces, boardCell);
                         foreach (GameObject movingPiece in movingPieces) {
                             board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
                         }
@@ -89,14 +82,6 @@ public class MoveSelector : MonoBehaviour
                     if(isHit.tag == "Unit") 
                     {
                         SelectUnit(isHit);
-
-                        Vector3Int currentCell = manager.map.WorldToCell(isHit.transform.position);
-                        Vector2Int boardCell = board.CoordsTilemapToBoard(currentCell);
-
-                        foreach (Vector2Int p in board.getNeighbors(boardCell))
-                        {
-                            possibleMoves.Add(p);
-                        }
                     }
                 }
             }
@@ -134,6 +119,8 @@ public class MoveSelector : MonoBehaviour
 
     private void EnterState()
     {
+        possibleMoves = controller.FindValidMoves(movingPieces);
+        board.HighlightTiles(possibleMoves);
         this.enabled = true;
         toggle.text = "Selecting Destination";
     }
@@ -153,5 +140,6 @@ public class MoveSelector : MonoBehaviour
         movingPieces = new List<GameObject>();
         toggle.text = "Selecting Units";
         possibleMoves = new List<Vector2Int>();
+        board.ClearHighlight();
     }
 }

@@ -23,14 +23,6 @@ public class ToggleSelect : MonoBehaviour
         
     }
 
-    void OnConfirm() {
-        if (pickUnits) {
-            pickUnits = false;
-            moveSelector.EnterState();
-            text.text = "Select a Tile";
-        }
-    }
-
     public void Reset() {
         pickUnits = true;
         text.text = "Select Units";

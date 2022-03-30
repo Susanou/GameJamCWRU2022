@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
@@ -29,6 +30,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Board board;
 
+    private GameObject turnSplash;
+    private MoveSelector moveSelector;
+    private bool splashBool = false;
+    private Text turnSplashText;
+
     void Awake()
     {
         instance = this;    
@@ -37,7 +43,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        turnSplash = GameObject.Find("New Turn Splash");
         board = GameObject.Find("Grid").GetComponent<Board>();
+        moveSelector = GameObject.Find("Grid").GetComponent<MoveSelector>();
+        turnSplashText = turnSplash.transform.GetChild(0).GetComponent<Text>();
+        turnSplash.SetActive(false);
 
         currentPlayer = p1;
         otherPlayer = p2;
@@ -61,7 +71,7 @@ public class GameManager : MonoBehaviour
 
         currentTurn = 0;
 
-        NextPlayer();
+        StartCoroutine(EnableTurnSplash());
     }
 
     // Update is called once per frame
@@ -85,7 +95,25 @@ public class GameManager : MonoBehaviour
         return map.WorldToCell(player.transform.position);
     }
 
-    public void NextPlayer()
+    public IEnumerator EnableTurnSplash() {
+        moveSelector.Freeze();
+        splashBool = true;
+        turnSplashText.text = otherPlayer.name+"'s Turn \n Hit Space to Confirm";
+        turnSplashText.color = otherPlayer.name == "player1" ? new Color(0.4f,0.88f,0.94f) : new Color(0.98f,0.14f,0.45f);
+        yield return new WaitForSeconds(1);
+        turnSplash.SetActive(true);
+    }
+
+    public void ClearTurnSplash() {
+        if (splashBool && turnSplash.activeInHierarchy) {
+            turnSplash.SetActive(false);
+            moveSelector.Unfreeze();
+            splashBool = false;
+            NextPlayer();
+        }
+    }
+
+    private void NextPlayer()
     {
         currentTurn++;
 
@@ -108,7 +136,7 @@ public class GameManager : MonoBehaviour
 
             currentPlayer = null;
         }
-        else{
+        else {
             Player tmpPlayer = currentPlayer;
 
             currentPlayer.fogOfWar.gameObject.SetActive(false);
@@ -132,7 +160,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
     }
 
     public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public enum UnitType 
 {
+    Generic,
+    Vampire,
+    Thrall
     
 }
 
@@ -16,19 +19,17 @@ public class Unit : MonoBehaviour
     private SpriteRenderer sprite;
 
     public Player owner;
-    public string ownerName;
 
     public float survivalRate;
 
     public float attack;
     public float defense;
 
+    public UnitType type;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (owner == null) {
-            owner = GameObject.Find(ownerName).GetComponent<Player>();
-        }
         moveSelector = GameObject.Find("Grid").GetComponent<MoveSelector>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
     }
@@ -37,10 +38,6 @@ public class Unit : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void FindOwner() {
-        owner = GameObject.Find(ownerName).GetComponent<Player>();
     }
 
     public void MoveTo(MapTile newLocation) {

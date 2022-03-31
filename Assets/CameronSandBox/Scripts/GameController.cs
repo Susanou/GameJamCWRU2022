@@ -45,6 +45,12 @@ public class GameController : MonoBehaviour
                 else manager.RemoveUnit(unit);
             }
             
+            foreach(GameObject unit in attackingUnits) {
+                if (unit.GetComponent<Unit>().type == UnitType.Vampire) {
+                    AddPiece("Thrall", targetRegion, player);
+                    break;
+                }
+            }
             // 10 bonus points for conquering
             manager.AddScore(10);
         }
@@ -76,6 +82,14 @@ public class GameController : MonoBehaviour
             board.Move(movingPiece, destination);
             if(movingPiece.GetComponent<Unit>().owner == manager.currentPlayer) manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, destination);
         }
+    }
+
+    public void AddPiece(string name, Vector2Int destination, Player player) {
+        GameObject newUnit = Instantiate(Resources.Load(name) as GameObject, manager.transform.position, Quaternion.identity, gameObject.transform);
+        player.playerUnits.Add(newUnit);
+        newUnit.GetComponent<Unit>().owner = player;
+        newUnit.layer = player.name=="Player1" ? 10 : 11;
+        MovePieces(new List<GameObject>{newUnit}, destination);
     }
 
     // Update is called once per frame

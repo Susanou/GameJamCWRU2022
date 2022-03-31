@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 1006169641404914405, guid: 424b0f1199f6e45108964e5df3fb9c34, type: 3}
-  ownerName: Player2
   survivalRate: 0.75
   attack: 1
   defense: 1
+  type: 0

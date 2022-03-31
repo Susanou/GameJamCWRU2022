@@ -23,7 +23,6 @@ public class MapTile
 
     private void UpdateOwner() {
         if (contents.Count > 0) {
-            if (contents[0].GetComponent<Unit>().owner == null) contents[0].GetComponent<Unit>().FindOwner();
             owner = contents[0].GetComponent<Unit>().owner;
             if (!owner.playerTiles.Contains(this.boardCoords)) owner.playerTiles.Add(this.boardCoords);
         }

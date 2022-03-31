@@ -6,8 +6,8 @@ public enum UnitType
 {
     Generic,
     Vampire,
-    Thrall
-    
+    Thrall,
+    Nightwing,
 }
 
 public class Unit : MonoBehaviour

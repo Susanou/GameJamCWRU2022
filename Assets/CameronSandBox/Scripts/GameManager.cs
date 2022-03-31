@@ -57,8 +57,8 @@ public class GameManager : MonoBehaviour
         currentPlayer = p1;
         otherPlayer = p2;
 
-        List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire","Thrall","Thrall"};
-        List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit"};
+        List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire","Vampire","Vampire","Nightwing"};
+        List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit","P1unit","P1unit"};
 
         List<string> p1Units;
         List<string> p2Units;

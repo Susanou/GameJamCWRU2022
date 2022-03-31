@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
         if (board[targetRegion.x,targetRegion.y].owner != null && board[targetRegion.x,targetRegion.y].owner != player) {
             List<GameObject> toResolve =  new List<GameObject>(board[targetRegion.x,targetRegion.y].GetContents());
             foreach(GameObject unit in toResolve) {
+                unit.SetActive(false);
                 if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) board.Move(unit,otherPlayerStart);
                 else manager.RemoveUnit(unit);
             }
@@ -80,7 +81,14 @@ public class GameController : MonoBehaviour
     public void MovePieces(List<GameObject> toMove, Vector2Int destination) {
         foreach (GameObject movingPiece in toMove) {
             board.Move(movingPiece, destination);
-            if(movingPiece.GetComponent<Unit>().owner == manager.currentPlayer) manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, destination);
+            if(movingPiece.GetComponent<Unit>().owner == manager.currentPlayer) {
+                manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, destination);
+                if (movingPiece.GetComponent<Unit>().type == UnitType.Nightwing) {
+                    foreach (Vector2Int neighbor in board.getNeighbors(destination)) {
+                        manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, neighbor);
+                    }
+                }
+            }
         }
     }
 

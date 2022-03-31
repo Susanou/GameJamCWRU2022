@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UnitType 
+{
+    
+}
+
 public class Unit : MonoBehaviour
 {
+
     public MapTile location;
     private MoveSelector moveSelector;
     private bool selected = false;

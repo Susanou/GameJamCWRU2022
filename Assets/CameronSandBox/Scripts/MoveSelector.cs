@@ -62,6 +62,7 @@ public class MoveSelector : MonoBehaviour
                         foreach (GameObject movingPiece in movingPieces) {
                             board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
                         }
+                        manager.AddScore(10);
                         ExitState();
                         StartCoroutine(manager.EnableTurnSplash());
                     }

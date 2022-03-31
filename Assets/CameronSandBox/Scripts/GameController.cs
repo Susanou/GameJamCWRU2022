@@ -44,7 +44,12 @@ public class GameController : MonoBehaviour
                 if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) board.Move(unit,otherPlayerStart);
                 else manager.RemoveUnit(unit);
             }
+            
+            //Add a score to the player for conquering
+            GameManager.instance.AddScore(10);
         }
+
+        
     }
 
     private float CalculateCellDefense(Vector2Int cell) {

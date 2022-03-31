@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     public int unitCount;
 
+    public Text turnText;
+    public Text p1Score;
+    public Text p2Score;
+
     public Player p1;
     public Player p2;
 
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour
             board.Move(p2unit, player2Start);
         }
 
-        currentTurn = 0;
+        currentTurn = 1;
 
         StartCoroutine(EnableTurnSplash());
     }
@@ -159,6 +163,9 @@ public class GameManager : MonoBehaviour
                     unit.SetActive(true);
                 }
             }
+            
+            // Since we add the turn each time, we divide by the number of players
+            turnText.text = "Turn: " + Mathf.Ceil(currentTurn/2);
         }
     }
 
@@ -194,6 +201,14 @@ public class GameManager : MonoBehaviour
     public bool DoesBelongToPlayer(GameObject unit)
     {
         return currentPlayer.playerUnits.Contains(unit);
+    }
+
+    public void AddScore(int score)
+    {
+        currentPlayer.AddScore(score);
+        if (currentPlayer.name == "player1") p1Score.text = "P1 = " + currentPlayer.GetScore();
+        else p2Score.text = "P2 = " + currentPlayer.GetScore();
+
     }
 
     #if UNITY_EDITOR

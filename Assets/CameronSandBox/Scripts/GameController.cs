@@ -45,11 +45,11 @@ public class GameController : MonoBehaviour
                 else manager.RemoveUnit(unit);
             }
             
-            //Add a score to the player for conquering
-            GameManager.instance.AddScore(10);
+            // 10 bonus points for conquering
+            manager.AddScore(10);
         }
-
-        
+        // 10 point baseline
+        manager.AddScore(10);
     }
 
     private float CalculateCellDefense(Vector2Int cell) {
@@ -69,6 +69,13 @@ public class GameController : MonoBehaviour
         }
 
         return (attackTotal);
+    }
+
+    public void MovePieces(List<GameObject> toMove, Vector2Int destination) {
+        foreach (GameObject movingPiece in toMove) {
+            board.Move(movingPiece, destination);
+            if(movingPiece.GetComponent<Unit>().owner == manager.currentPlayer) manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, destination);
+        }
     }
 
     // Update is called once per frame

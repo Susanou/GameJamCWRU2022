@@ -59,10 +59,7 @@ public class MoveSelector : MonoBehaviour
                     if(possibleMoves.Contains(boardCell))
                     {
                         controller.ConquerRegion(movingPieces, boardCell);
-                        foreach (GameObject movingPiece in movingPieces) {
-                            board.Move(movingPiece, board.CoordsTilemapToBoard(currentCell));
-                        }
-                        manager.AddScore(10);
+                        controller.MovePieces(movingPieces, boardCell);
                         ExitState();
                         StartCoroutine(manager.EnableTurnSplash());
                     }

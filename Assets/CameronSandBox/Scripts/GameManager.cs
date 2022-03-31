@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     private bool splashBool = false;
     private Text turnSplashText;
 
+    private GameController controller;
+
     void Awake()
     {
         instance = this;    
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
         turnSplash = GameObject.Find("New Turn Splash");
         board = GameObject.Find("Grid").GetComponent<Board>();
         moveSelector = GameObject.Find("Grid").GetComponent<MoveSelector>();
+        controller = GameObject.Find("Grid").GetComponent<GameController>();
         turnSplashText = turnSplash.transform.GetChild(0).GetComponent<Text>();
         turnSplash.SetActive(false);
 
@@ -60,8 +63,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < unitCount; i++) {
             GameObject p1unit = Instantiate(P1unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
             p1.playerUnits.Add(p1unit);
-            board.Move(p1unit, player1Start);
         }
+        controller.MovePieces(p1.playerUnits, player1Start);
 
         currentPlayer = p2;
         otherPlayer = p1;
@@ -70,8 +73,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < unitCount; i++) {
             GameObject p2unit = Instantiate(P2unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
             p2.playerUnits.Add(p2unit);
-            board.Move(p2unit, player2Start);
         }
+        controller.MovePieces(p2.playerUnits, player2Start);
 
         currentTurn = 1;
 
@@ -187,7 +190,11 @@ public class GameManager : MonoBehaviour
             Debug.Log(tileCoords);
 
             Vector2Int boardCoords = board.CoordsTilemapToBoard(tileCoords);
-            currentPlayer.visibleTiles.Add(board.CoordsTilemapToBoard(tileCoords));
+            currentPlayer.visibleTiles.Add(boardCoords);
+
+            foreach (GameObject unit in board[boardCoords.x,boardCoords.y].GetContents()) {
+                unit.SetActive(true);
+            }
         }
     }
 
@@ -208,7 +215,6 @@ public class GameManager : MonoBehaviour
         currentPlayer.AddScore(score);
         if (currentPlayer.name == "player1") p1Score.text = "P1 = " + currentPlayer.GetScore();
         else p2Score.text = "P2 = " + currentPlayer.GetScore();
-
     }
 
     #if UNITY_EDITOR

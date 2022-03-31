@@ -102,8 +102,6 @@ public class Board : MonoBehaviour
         if (oldLocation != null) {
             Arrange(this[oldLocation.boardCoords.x,oldLocation.boardCoords.y].GetContents(),map.CellToWorld(oldLocation.tileCoords));
         }
-        
-        if(movingPiece.GetComponent<Unit>().owner == gameManager.currentPlayer) gameManager.UpdateFogOfWar(gameManager.currentPlayer.fogOfWar, newCoords);
     }
 
     void Arrange(List<GameObject> toArrage, Vector2 destination) {

@@ -17,17 +17,15 @@ public class GameManager : MonoBehaviour
     public Vector2Int player1Start;
     public Vector2Int player2Start;
 
-    public GameObject P1unitPrefab;
-    public GameObject P2unitPrefab;
-
-    public int unitCount;
-
     public Text turnText;
     public Text p1Score;
     public Text p2Score;
 
     public Player p1;
     public Player p2;
+
+    public string p1faction;
+    public string p2faction;
 
     public Player currentPlayer;
     public Player otherPlayer;
@@ -59,10 +57,27 @@ public class GameManager : MonoBehaviour
         currentPlayer = p1;
         otherPlayer = p2;
 
+        List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire"};
+        List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit"};
+
+        List<string> p1Units;
+        List<string> p2Units;
+
+        switch(p1faction) {
+            case "Vampire": p1Units = vampireUnits; break;
+            default: p1Units = genericUnits; break;
+        }
+        switch(p2faction) {
+            case "Vampire": p2Units = vampireUnits; break;
+            default: p2Units = genericUnits; break;
+        }
+
         Vector3 worldPosition = map.CellToWorld(board.CoordsBoardToTilemap(player1Start));
-        for (int i = 0; i < unitCount; i++) {
-            GameObject p1unit = Instantiate(P1unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
+        foreach (string unit in p1Units) {
+            GameObject p1unit = Instantiate(Resources.Load(unit) as GameObject, worldPosition, Quaternion.identity, gameObject.transform);
             p1.playerUnits.Add(p1unit);
+            p1unit.GetComponent<Unit>().owner = p1;
+            p1unit.layer = 10;
         }
         controller.MovePieces(p1.playerUnits, player1Start);
 
@@ -70,9 +85,12 @@ public class GameManager : MonoBehaviour
         otherPlayer = p1;
 
         worldPosition = map.CellToWorld(board.CoordsBoardToTilemap(player2Start));
-        for (int i = 0; i < unitCount; i++) {
-            GameObject p2unit = Instantiate(P2unitPrefab, worldPosition, Quaternion.identity, gameObject.transform);
+        foreach (string unit in p2Units) {
+            GameObject p2unit = Instantiate(Resources.Load(unit) as GameObject, worldPosition, Quaternion.identity, gameObject.transform);
             p2.playerUnits.Add(p2unit);
+            p2unit.GetComponent<Unit>().owner = p2;
+            p2unit.transform.localScale = new Vector2(-p2unit.transform.localScale.x, p2unit.transform.localScale.y);
+            p2unit.layer = 11;
         }
         controller.MovePieces(p2.playerUnits, player2Start);
 

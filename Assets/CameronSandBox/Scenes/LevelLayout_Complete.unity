@@ -64329,14 +64329,13 @@ MonoBehaviour:
   maxTurns: 20
   player1Start: {x: 11, y: 12}
   player2Start: {x: 16, y: 13}
-  P1unitPrefab: {fileID: 8663352934692540038, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
-  P2unitPrefab: {fileID: 9155417897262506110, guid: 593edfffda8b0eb4b895936758aa9c46, type: 3}
-  unitCount: 5
   turnText: {fileID: 53006159}
   p1Score: {fileID: 292716356}
   p2Score: {fileID: 1716610575}
   p1: {fileID: 147269162}
   p2: {fileID: 1436637520}
+  p1faction: Vampire
+  p2faction: 
   currentPlayer: {fileID: 0}
   otherPlayer: {fileID: 0}
   board: {fileID: 188146369}

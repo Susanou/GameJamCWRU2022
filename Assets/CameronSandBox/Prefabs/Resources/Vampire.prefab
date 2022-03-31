@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8663352934692540038, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
       propertyPath: m_Name
-      value: P1Vampire
+      value: Vampire
       objectReference: {fileID: 0}
     - target: {fileID: 8663352934692540039, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
       propertyPath: m_Sprite
@@ -18,6 +18,14 @@ PrefabInstance:
     - target: {fileID: 8663352934692540088, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663352934692540088, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663352934692540088, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8663352934692540088, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
       propertyPath: m_LocalPosition.x

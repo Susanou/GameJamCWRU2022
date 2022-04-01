@@ -9,6 +9,7 @@ public enum UnitType
     Thrall,
     Nightwing,
     Eyewitness,
+    VioletWorm,
 }
 
 public class Unit : MonoBehaviour

@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         otherPlayer = p2;
 
         List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire","Vampire","Vampire","Nightwing"};
+        List<string> eldritchUnits = new List<string>{"Eyewitness","Eyewitness","Eyewitness","Violet Worm","Violet Worm","Violet Worm"};
         List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit","P1unit","P1unit"};
 
         List<string> p1Units;

@@ -20,6 +20,7 @@ public class HoverText : MonoBehaviour
         descriptions.Add(UnitType.Thrall,"Thrall: This unit doesn't do anything special except that you can get more of them. Dies pretty easily too.");
         descriptions.Add(UnitType.Nightwing,"Nightwing: High defense high attack and increased radius of tile reveal");
         descriptions.Add(UnitType.Eyewitness,"Eyewitness: Low defense, but increased vision radius and move speed, and very hard to kill");
+        descriptions.Add(UnitType.VioletWorm,"Violet Worm: Decent attack, excellent defense, but not likely to walk away from a fight.");
     }
 
     // Update is called once per frame

@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/CameronSandBox/Scenes/StartMenu.unity
+    guid: e8ef2552c3832744f818a38cb9bb0ba4
+  - enabled: 1
+    path: Assets/CameronSandBox/Scenes/LevelLayout_Complete.unity
+    guid: 1e5c46f2d591f5741a0e902821cc3e8e
+  - enabled: 1
+    path: Assets/CameronSandBox/Scenes/End Credits.unity
+    guid: df2c88e815f7b014fafcfbe0b97c2756
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5968bd90a14aa974980496f83b9c18b1, type: 2}

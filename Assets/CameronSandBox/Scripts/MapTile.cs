@@ -26,7 +26,7 @@ public class MapTile
 
         cost = newCost;
         score = newScore;
-        Debug.Log("Coords: " + boardCoords + " => Score = " + score);
+        //Debug.Log("Coords: " + boardCoords + " => Score = " + score);
     }
 
     private void UpdateOwner() {

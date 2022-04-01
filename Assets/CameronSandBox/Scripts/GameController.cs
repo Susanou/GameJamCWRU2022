@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
         GameObject newUnit = Instantiate(Resources.Load(name) as GameObject, manager.transform.position, Quaternion.identity, gameObject.transform);
         player.playerUnits.Add(newUnit);
         newUnit.GetComponent<Unit>().owner = player;
-        newUnit.layer = player.name=="Player1" ? 10 : 11;
+        newUnit.layer = player.name=="Player1"||player.name=="player1" ? LayerMask.NameToLayer("Player1") : LayerMask.NameToLayer("Player2");
         MovePieces(new List<GameObject>{newUnit}, destination);
     }
 

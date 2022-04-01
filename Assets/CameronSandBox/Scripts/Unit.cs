@@ -60,6 +60,7 @@ public class Unit : MonoBehaviour
         SetHighlight();
     }
 
+    
 
     void SetHighlight() {
         if (selected) {

@@ -192,7 +192,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)
     {
-        Debug.Log("Update Fog");
         // Takes in input that is Board Coordinates
         Vector2Int boardPlayerTile = newLocation;
         Vector3Int currentPlayerTile = board.CoordsBoardToTilemap(newLocation);
@@ -205,7 +204,6 @@ public class GameManager : MonoBehaviour
         foreach((int,int) neighbor in allNeighbors) {
             Vector3Int tileCoords = currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0);
             playerFog.SetTile(tileCoords, null);
-            Debug.Log(tileCoords);
 
             Vector2Int boardCoords = board.CoordsTilemapToBoard(tileCoords);
             currentPlayer.visibleTiles.Add(boardCoords);

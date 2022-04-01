@@ -21,6 +21,7 @@ public class HoverText : MonoBehaviour
         descriptions.Add(UnitType.Nightwing,"Nightwing: High defense high attack and increased radius of tile reveal");
         descriptions.Add(UnitType.Eyewitness,"Eyewitness: Low defense, but increased vision radius and move speed, and very hard to kill");
         descriptions.Add(UnitType.VioletWorm,"Violet Worm: Decent attack, excellent defense, but not likely to walk away from a fight.");
+        descriptions.Add(UnitType.Mindflayer,"Mindflayer: Very low attack, but they can take any region by forcing enemy units to retreat to a nearby cell, or back home if they're surrounded.");
     }
 
     // Update is called once per frame

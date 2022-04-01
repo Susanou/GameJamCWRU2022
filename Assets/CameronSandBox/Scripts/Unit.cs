@@ -10,6 +10,7 @@ public enum UnitType
     Nightwing,
     Eyewitness,
     VioletWorm,
+    Mindflayer,
 }
 
 public class Unit : MonoBehaviour

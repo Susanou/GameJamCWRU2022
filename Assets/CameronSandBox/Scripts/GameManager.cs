@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         otherPlayer = p2;
 
         List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire","Vampire","Vampire","Nightwing"};
-        List<string> eldritchUnits = new List<string>{"Eyewitness","Eyewitness","Eyewitness","Violet Worm","Violet Worm","Violet Worm"};
+        List<string> eldritchUnits = new List<string>{"Eyewitness","Eyewitness","Eyewitness","Violet Worm","Violet Worm","Mindflayer","Mindflayer"};
         List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit","P1unit","P1unit"};
 
         List<string> p1Units;
@@ -66,10 +66,12 @@ public class GameManager : MonoBehaviour
 
         switch(p1faction) {
             case "Vampire": p1Units = vampireUnits; break;
+            case "Eldritch": p1Units = eldritchUnits; break;
             default: p1Units = genericUnits; break;
         }
         switch(p2faction) {
             case "Vampire": p2Units = vampireUnits; break;
+            case "Eldritch": p2Units = eldritchUnits; break;
             default: p2Units = genericUnits; break;
         }
 

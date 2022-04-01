@@ -100,7 +100,7 @@ public class MoveSelector : MonoBehaviour
                 GameObject isHitLook = hitLook.collider.gameObject;
                 if(isHitLook.tag == "Unit") 
                 {
-                    hoverText.SetVisible(isHitLook.GetComponent<Unit>().type);
+                    hoverText.SetVisible(isHitLook.GetComponent<Unit>().type,isHitLook.GetComponent<Unit>().owner);
                 }
                 else hoverText.SetInvisible();
             }

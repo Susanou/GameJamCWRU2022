@@ -27,9 +27,10 @@ public class HoverText : MonoBehaviour
         
     }
 
-    public void SetVisible(UnitType type) {
+    public void SetVisible(UnitType type, Player player) {
         gameObject.SetActive(true);
         myText.text = descriptions[type];
+        myText.color = player.name == "player1" ? new Color(0.4f,0.88f,0.94f) : new Color(0.98f,0.14f,0.45f);
     }
 
     public void SetInvisible() {

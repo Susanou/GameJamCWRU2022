@@ -18,11 +18,22 @@ public class GameController : MonoBehaviour
     public List<Vector2Int> FindValidMoves(List<GameObject> attackingUnits) {
         List<Vector2Int> reachableTiles = new List<Vector2Int>();
         List<Vector2Int> validTiles = new List<Vector2Int>();
+        bool fastUnits = true;
 
         foreach (Vector2Int cell in manager.currentPlayer.playerTiles) {
             reachableTiles.Add(cell);
             reachableTiles.AddRange(board.getNeighbors(cell));
         }
+        foreach (GameObject unit in attackingUnits) {
+            if (!unit.GetComponent<Unit>().twoMove) fastUnits = false;
+        }
+
+        if (fastUnits) {
+            foreach (Vector2Int cell in new List<Vector2Int>(reachableTiles)) {
+                reachableTiles.AddRange(board.getNeighbors(cell));
+            }
+        }
+
         reachableTiles = reachableTiles.Distinct().ToList();
         
         float totalAttack = CalculateUnitsAttack(attackingUnits);
@@ -89,7 +100,7 @@ public class GameController : MonoBehaviour
             board.Move(movingPiece, destination);
             if(movingPiece.GetComponent<Unit>().owner == manager.currentPlayer) {
                 manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, destination);
-                if (movingPiece.GetComponent<Unit>().type == UnitType.Nightwing) {
+                if (movingPiece.GetComponent<Unit>().twoVision) {
                     foreach (Vector2Int neighbor in board.getNeighbors(destination)) {
                         manager.UpdateFogOfWar(manager.currentPlayer.fogOfWar, neighbor);
                     }
@@ -102,7 +113,7 @@ public class GameController : MonoBehaviour
         GameObject newUnit = Instantiate(Resources.Load(name) as GameObject, manager.transform.position, Quaternion.identity, gameObject.transform);
         player.playerUnits.Add(newUnit);
         newUnit.GetComponent<Unit>().owner = player;
-        newUnit.layer = player.name=="Player1" ? 10 : 11;
+        newUnit.layer = player.name=="Player1"||player.name=="player1" ? LayerMask.NameToLayer("Player1") : LayerMask.NameToLayer("Player2");
         MovePieces(new List<GameObject>{newUnit}, destination);
     }
 

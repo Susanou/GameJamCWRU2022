@@ -9,6 +9,7 @@ public class MoveSelector : MonoBehaviour
     private int unitsMask;
     private int p1Mask;
     private int p2Mask;
+    private int bothMask;
 
     private GameObject tileHighlight;
     private List<GameObject> movingPieces = new List<GameObject>();
@@ -23,12 +24,15 @@ public class MoveSelector : MonoBehaviour
 
     private List<Vector2Int> possibleMoves = new List<Vector2Int>();
 
+    public HoverText hoverText;
+
     // Start is called before the first frame update
     void Start()
     {
         this.enabled = false;
         p1Mask  = LayerMask.GetMask("Player1");
         p2Mask  = LayerMask.GetMask("Player2");
+        bothMask  = LayerMask.GetMask("Player1","Player2");
         manager = GameManager.instance;
         board = GameObject.Find("Grid").GetComponent<Board>();
         controller = GameObject.Find("Grid").GetComponent<GameController>();
@@ -85,6 +89,25 @@ public class MoveSelector : MonoBehaviour
             }
         }  
     }
+
+    void OnLook() {
+        if(isActive) {
+            Vector2 rayLook = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+
+            RaycastHit2D hitLook = Physics2D.Raycast(rayLook, Vector2.zero, distance: Mathf.Infinity, layerMask: bothMask);
+
+            if(hitLook) {
+                GameObject isHitLook = hitLook.collider.gameObject;
+                if(isHitLook.tag == "Unit") 
+                {
+                    hoverText.SetVisible(isHitLook.GetComponent<Unit>().type,isHitLook.GetComponent<Unit>().owner);
+                }
+                else hoverText.SetInvisible();
+            }
+            else hoverText.SetInvisible();
+        }
+    }
+
 
     void OnHitEnter()
     {

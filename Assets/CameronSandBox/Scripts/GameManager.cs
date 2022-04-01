@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         otherPlayer = p2;
 
         List<string> vampireUnits = new List<string>{"Vampire","Vampire","Vampire","Vampire","Vampire","Nightwing"};
+        List<string> eldritchUnits = new List<string>{"Eyewitness","Eyewitness","Eyewitness","Violet Worm","Violet Worm","Violet Worm"};
         List<string> genericUnits = new List<string>{"P1unit","P1unit","P1unit","P1unit","P1unit"};
 
         List<string> p1Units;
@@ -192,7 +193,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)
     {
-        Debug.Log("Update Fog");
         // Takes in input that is Board Coordinates
         Vector2Int boardPlayerTile = newLocation;
         Vector3Int currentPlayerTile = board.CoordsBoardToTilemap(newLocation);
@@ -205,7 +205,6 @@ public class GameManager : MonoBehaviour
         foreach((int,int) neighbor in allNeighbors) {
             Vector3Int tileCoords = currentPlayerTile + new Vector3Int(neighbor.Item1, neighbor.Item2, 0);
             playerFog.SetTile(tileCoords, null);
-            Debug.Log(tileCoords);
 
             Vector2Int boardCoords = board.CoordsTilemapToBoard(tileCoords);
             currentPlayer.visibleTiles.Add(boardCoords);

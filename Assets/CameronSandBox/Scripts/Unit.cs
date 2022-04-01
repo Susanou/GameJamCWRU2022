@@ -8,10 +8,13 @@ public enum UnitType
     Vampire,
     Thrall,
     Nightwing,
+    Eyewitness,
 }
 
 public class Unit : MonoBehaviour
 {
+    public bool twoMove;
+    public bool twoVision;
 
     public MapTile location;
     private MoveSelector moveSelector;
@@ -60,7 +63,7 @@ public class Unit : MonoBehaviour
         SetHighlight();
     }
 
-    
+
 
     void SetHighlight() {
         if (selected) {

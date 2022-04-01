@@ -16,9 +16,10 @@ public class HoverText : MonoBehaviour
         gameObject.SetActive(false);
 
         descriptions.Add(UnitType.Generic,"Generic: This is a placeholder unit, which you should not be seeing");
-        descriptions.Add(UnitType.Vampire,"Vampire: Increased attack, and when you take a region that has enemy units in it, you also gain a Thrall unit");
-        descriptions.Add(UnitType.Thrall,"Thrall: This unit doesn't do anything special except that you can get more of them.");
+        descriptions.Add(UnitType.Vampire,"Vampire: Increased attack, and when it takes a region that has enemy units, you gain a Thrall unit");
+        descriptions.Add(UnitType.Thrall,"Thrall: This unit doesn't do anything special except that you can get more of them. Dies pretty easily too.");
         descriptions.Add(UnitType.Nightwing,"Nightwing: High defense high attack and increased radius of tile reveal");
+        descriptions.Add(UnitType.Eyewitness,"Eyewitness: Low defense, but increased vision radius and move speed, and very hard to kill");
     }
 
     // Update is called once per frame

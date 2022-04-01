@@ -25,6 +25,8 @@ public class Unit : MonoBehaviour
     public float attack;
     public float defense;
 
+    public int unitScore;
+
     public UnitType type;
 
     // Start is called before the first frame update

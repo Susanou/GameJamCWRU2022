@@ -37,9 +37,13 @@ public class GameController : MonoBehaviour
     public void ConquerRegion(List<GameObject> attackingUnits, Vector2Int targetRegion) {
         Player player = manager.currentPlayer;
         Vector2Int otherPlayerStart = (player.name == "player1") ? manager.player2Start : manager.player1Start;
-        
+    
+
         if (board[targetRegion.x,targetRegion.y].owner != null && board[targetRegion.x,targetRegion.y].owner != player) {
             List<GameObject> toResolve =  new List<GameObject>(board[targetRegion.x,targetRegion.y].GetContents());
+
+            manager.AddScore(board[targetRegion.x,targetRegion.y].score);
+
             foreach(GameObject unit in toResolve) {
                 unit.SetActive(false);
                 if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) board.Move(unit,otherPlayerStart);
@@ -51,12 +55,14 @@ public class GameController : MonoBehaviour
                     AddPiece("Thrall", targetRegion, player);
                     break;
                 }
-            }
-            // 10 bonus points for conquering
-            manager.AddScore(10);
+            } 
         }
-        // 10 point baseline
-        manager.AddScore(10);
+        // Add score when conquering a region
+        else if(board[targetRegion.x,targetRegion.y].owner != player){
+            manager.AddScore(board[targetRegion.x,targetRegion.y].score);
+        }
+
+
     }
 
     private float CalculateCellDefense(Vector2Int cell) {
@@ -100,9 +106,4 @@ public class GameController : MonoBehaviour
         MovePieces(new List<GameObject>{newUnit}, destination);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

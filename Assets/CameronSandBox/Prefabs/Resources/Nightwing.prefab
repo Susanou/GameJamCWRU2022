@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: defense
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5510676031465981693, guid: b3a867184435843399a85c975664d9d9, type: 3}
+      propertyPath: unitScore
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5510676031465981694, guid: b3a867184435843399a85c975664d9d9, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 22

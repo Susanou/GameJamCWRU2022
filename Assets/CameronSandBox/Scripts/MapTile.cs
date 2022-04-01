@@ -13,12 +13,20 @@ public class MapTile
 
     public float cost = 2;
 
+    public int score = 10;
+
     private void UpdateCost() {
         float newCost = 2;
+        int newScore = 10;
+
         foreach(GameObject unit in contents) {
             newCost += unit.GetComponent<Unit>().defense;
+            newScore += unit.GetComponent<Unit>().unitScore;
         }
+
         cost = newCost;
+        score = newScore;
+        Debug.Log("Coords: " + boardCoords + " => Score = " + score);
     }
 
     private void UpdateOwner() {

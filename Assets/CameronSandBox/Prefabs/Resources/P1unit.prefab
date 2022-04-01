@@ -164,6 +164,7 @@ MonoBehaviour:
   survivalRate: 0.75
   attack: 1
   defense: 1
+  unitScore: 10
   type: 0
 --- !u!1 &8663352934752511052
 GameObject:

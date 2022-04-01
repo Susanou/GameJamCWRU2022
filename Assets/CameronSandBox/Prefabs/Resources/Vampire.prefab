@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: ownerName
       value: player1
       objectReference: {fileID: 0}
+    - target: {fileID: 8663352934692540094, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
+      propertyPath: unitScore
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8663352934752511053, guid: 8da3dad99a117084990fd70ece056a79, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.564

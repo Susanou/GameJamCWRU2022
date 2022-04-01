@@ -64157,8 +64157,8 @@ MonoBehaviour:
   p2Score: {fileID: 1716610575}
   p1: {fileID: 147269162}
   p2: {fileID: 1436637520}
-  p1faction: Vampire
-  p2faction: Eldritch
+  p1faction: Eldritch
+  p2faction: Mummy
   currentPlayer: {fileID: 0}
   otherPlayer: {fileID: 0}
   board: {fileID: 188146369}

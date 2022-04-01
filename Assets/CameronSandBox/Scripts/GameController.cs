@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
             Unit unitScript = unit.GetComponent<Unit>();
             if (!unitScript.twoMove) fastUnits = false;
             if (unitScript.type == UnitType.Mindflayer) attackOverride = true;
+            if (unitScript.type == UnitType.Scarab) attackOverride = true;
         }
 
         foreach (Vector2Int cell in manager.currentPlayer.playerTiles) {
@@ -57,6 +58,7 @@ public class GameController : MonoBehaviour
 
         bool mindControl = false;
         bool createThrall = false;
+        bool invade = true;
 
         if (board[targetRegion.x,targetRegion.y].owner != null && board[targetRegion.x,targetRegion.y].owner != player) {
             List<GameObject> toResolve =  new List<GameObject>(board[targetRegion.x,targetRegion.y].GetContents());
@@ -67,10 +69,17 @@ public class GameController : MonoBehaviour
                 Unit unitScript = unit.GetComponent<Unit>();
                 if (unitScript.type == UnitType.Mindflayer) mindControl = true;
                 if (unitScript.type == UnitType.Vampire) createThrall = true;
+                if (unitScript.type != UnitType.Scarab) invade = false;
             }
 
             // Normal Conquering Can Happen and Therefore Does
-            if(CalculateUnitsAttack(attackingUnits) >= CalculateCellDefense(targetRegion)){
+            if(mindControl) {
+                ForcedRetreat(toResolve, targetRegion);
+            }
+            else if (invade) {
+                Debug.Log("invade");
+            }
+            else {
                 foreach(GameObject unit in toResolve) {
                     unit.SetActive(false);
                     if (Random.Range(0f,1f) < unit.GetComponent<Unit>().survivalRate) board.Move(unit,otherPlayerStart);
@@ -78,9 +87,7 @@ public class GameController : MonoBehaviour
                 }
             }
             // Fallback to override options, first up mind control
-            else if(mindControl && toResolve.Count > 0) {
-                ForcedRetreat(toResolve, targetRegion);
-            }
+            
 
             // Post attack resolution stuff
             if (createThrall) AddPiece("Thrall", targetRegion, player);

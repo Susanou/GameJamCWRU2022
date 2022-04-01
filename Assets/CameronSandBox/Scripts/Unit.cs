@@ -11,6 +11,9 @@ public enum UnitType
     Eyewitness,
     VioletWorm,
     Mindflayer,
+    Mummy,
+    Scarab,
+    Sphinx
 }
 
 public class Unit : MonoBehaviour

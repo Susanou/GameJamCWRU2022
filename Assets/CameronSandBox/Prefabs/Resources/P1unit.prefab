@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8663352934692540038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.5, y: -2.8125, z: -0.00390625}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 8663352934752511053}
@@ -160,6 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3de8a3793a90641db8958c339007fb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  twoMove: 0
+  twoVision: 0
   owner: {fileID: 2079649261903620157, guid: 9f0c3c95c95904bcdbca611807296e72, type: 3}
   survivalRate: 0.75
   attack: 1

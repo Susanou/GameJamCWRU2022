@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 
 public class Board : MonoBehaviour
@@ -105,13 +106,21 @@ public class Board : MonoBehaviour
     }
 
     void Arrange(List<GameObject> toArrage, Vector2 destination) {
-        float xMin = destination.x - 0.5f;
-        float xRange = 1f;
-        float xInc = xRange/(toArrage.Count+1);
+        List<List<GameObject>> allRows = new List<List<GameObject>>();
+        int rows = Mathf.CeilToInt(toArrage.Count/4f);
+        //float unitsPerRow = toArrage.Count/rows;
+        int r = 0;
+        allRows = (from item in toArrage group item by r++ % rows into part select part.ToList()).ToList();
+        Debug.Log("rows generated");
+        for(int i = 0; i < allRows.Count; i++) {
+            float xMin = destination.x - 0.5f;
+            float xRange = 1f;
+            float xInc = xRange/(allRows[i].Count+1);
 
-        for (int i = 0; i < toArrage.Count; i++) {
-            toArrage[i].transform.position = new Vector3(xMin + xInc*(i+1),destination.y-0.05f,0);
-        }
+            for (int j = 0; j < allRows[i].Count; j++) {
+                allRows[i][j].transform.position = new Vector3(xMin + xInc*(j+1),destination.y-0.02f-(i*0.2f),-0.01f*i);
+            }
+        }   
     }
 
     public Vector2Int[] getNeighbors(Vector2Int centerCoord) {

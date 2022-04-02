@@ -16,6 +16,14 @@ PrefabInstance:
       value: Scarab
       objectReference: {fileID: 0}
     - target: {fileID: 5934582834116857144, guid: 8b2553d8ea2a346e4b561295d706c984, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934582834116857144, guid: 8b2553d8ea2a346e4b561295d706c984, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5934582834116857144, guid: 8b2553d8ea2a346e4b561295d706c984, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 10
       objectReference: {fileID: 0}
@@ -165,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5934582834127153096, guid: 8b2553d8ea2a346e4b561295d706c984, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.933
+      value: 0.633
       objectReference: {fileID: 0}
     - target: {fileID: 5934582834127153096, guid: 8b2553d8ea2a346e4b561295d706c984, type: 3}
       propertyPath: m_LocalRotation.w

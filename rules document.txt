@@ -1,0 +1,11 @@
+A turn consists of selecitng any number of your own units and moving them to a tile
+If you don't alreay have units in that tile, you can take over it to gain points, if your units have enough power
+If an enemy does have units on that tile, you need to overcome the defense they have to steal the tile
+When a tile is stolen, the units already there are either killed, or manage to retreat back to their spawn point
+
+Select units by clicking them, you can click again to deselect
+Hit enter to commit those unit and choose a destination, valid tiles will be highlighted
+Hit enter again without clicking a tile to revise unit selection
+
+The map is obscured by a fog that each player progressively reveals. Enemy units will only be visible when they are on revealed tiles
+Any tiles you own are valid places for any of your units to move from

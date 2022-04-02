@@ -20,6 +20,12 @@ public class StartMenu : MonoBehaviour
         //MenuMusic.SetActive(false);
     }
 
+    public void rules()
+    {
+        SceneManager.LoadScene(3);
+        //MenuMusic.SetActive(false);
+    }
+
     public void startMenu()
     {
         Destroy(GameObject.FindGameObjectWithTag("Player"));

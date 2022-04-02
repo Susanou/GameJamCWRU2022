@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +8,14 @@ public class GameController : MonoBehaviour
 {
     private GameManager manager;
     private Board board;
+    private Tilemap tileMap;
 
     // Start is called before the first frame update
     void Start()
     {
         board = GameObject.Find("Grid").GetComponent<Board>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        tileMap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
     }
 
     public List<Vector2Int> FindValidMoves(List<GameObject> attackingUnits) {
@@ -44,9 +47,11 @@ public class GameController : MonoBehaviour
         float totalAttack = CalculateUnitsAttack(attackingUnits);
 
         foreach (Vector2Int cell in reachableTiles) {
-            if (board[cell.x,cell.y].owner == manager.currentPlayer) validTiles.Add(cell);
-            else if (attackOverride) validTiles.Add(cell);
-            else if (totalAttack >= CalculateCellDefense(cell)) validTiles.Add(cell);
+            if(tileMap.HasTile(board.CoordsBoardToTilemap(cell))) {
+                if (board[cell.x,cell.y].owner == manager.currentPlayer) validTiles.Add(cell);
+                else if (attackOverride) validTiles.Add(cell);
+                else if (totalAttack >= CalculateCellDefense(cell)) validTiles.Add(cell);
+            }
         }
 
         return(validTiles);

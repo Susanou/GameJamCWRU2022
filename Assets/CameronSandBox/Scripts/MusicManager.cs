@@ -32,7 +32,7 @@ public class MusicManager : MonoBehaviour
     }
 
     void OnSceneLoaded(Scene current, Scene next) {
-        if (next.name == "StartMenu" || next.name == "End Credits") {
+        if (next.name == "StartMenu" || next.name == "End Credits" || next.name == "Rules") {
             if (activeMusic != "menuMusic") myAudio.clip = menuMusic;
             activeMusic = "menuMusic";
         }

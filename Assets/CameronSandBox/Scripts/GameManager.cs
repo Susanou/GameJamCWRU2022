@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Tilemap map;
 
-    public int maxTurns;
+    public static int maxTurns;
     private int currentTurn;
 
     public Vector2Int player1Start;

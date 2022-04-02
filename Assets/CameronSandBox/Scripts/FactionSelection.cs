@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class FactionSelection : MonoBehaviour
 
     public Dropdown p1Faction;
     public Dropdown p2Faction;
+    public InputField turnNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,7 @@ public class FactionSelection : MonoBehaviour
 
         GameManager.p1faction = "Vampire";
         GameManager.p2faction = "Vampire";
+        GameManager.maxTurns = 20; // 10 turns for each player
 
         p1Faction.onValueChanged.AddListener(delegate
         {
@@ -25,6 +28,8 @@ public class FactionSelection : MonoBehaviour
         {
             player2Faction(p2Faction);
         });
+
+
     }
 
     // Update is called once per frame
@@ -72,5 +77,10 @@ public class FactionSelection : MonoBehaviour
                 GameManager.p2faction = "Generic";
                 break;
         }
+    }
+
+    public void maxTurn(InputField turns)
+    {
+        GameManager.maxTurn = Int32.Parse(turns.value);
     }
 }

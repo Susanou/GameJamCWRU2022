@@ -7,7 +7,7 @@ public class MusicManager : MonoBehaviour
 {
     private AudioSource myAudio;
     private static MusicManager _instance;
-    private string activeMusic;
+    private string activeMusic = "menuMusic";
     public AudioClip menuMusic;
     public AudioClip gameMusic;
 
@@ -33,12 +33,18 @@ public class MusicManager : MonoBehaviour
 
     void OnSceneLoaded(Scene current, Scene next) {
         if (next.name == "StartMenu" || next.name == "End Credits" || next.name == "Rules") {
-            if (activeMusic != "menuMusic") myAudio.clip = menuMusic;
-            activeMusic = "menuMusic";
+            if (activeMusic != "menuMusic") {
+                myAudio.clip = menuMusic;
+                myAudio.Play();
+                activeMusic = "menuMusic";
+            } 
         }
         if (next.name == "LevelLayout_Complete") {
-            if (activeMusic != "gameMusic") myAudio.clip = gameMusic;
-            activeMusic = "gameMusic";
+            if (activeMusic != "gameMusic") {
+                myAudio.clip = gameMusic;
+                activeMusic = "gameMusic";
+                myAudio.Play();
+            }  
         }
     }
  
@@ -59,8 +65,4 @@ public class MusicManager : MonoBehaviour
         }
     }
  
-    public void Play()
-    {
-       myAudio.Play();
-    }
 }

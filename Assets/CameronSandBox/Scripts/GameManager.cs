@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     public Player p1;
     public Player p2;
 
-    public string p1faction;
-    public string p2faction;
+    public static string p1faction;
+    public static string p2faction;
 
     public Player currentPlayer;
     public Player otherPlayer;

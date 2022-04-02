@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public Text turnText;
     public Text p1Score;
     public Text p2Score;
+    public Text winnerText;
 
     public Player p1;
     public Player p2;
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
         controller = GameObject.Find("Grid").GetComponent<GameController>();
         turnSplashText = turnSplash.transform.GetChild(0).GetComponent<Text>();
         turnSplash.SetActive(false);
+
+        winnerText.gameObject.SetActive(false);
 
         currentPlayer = p1;
         otherPlayer = p2;
@@ -101,7 +104,8 @@ public class GameManager : MonoBehaviour
         controller.MovePieces(p2.playerUnits, player2Start);
 
         currentTurn = 1;
-
+        turnText.text = "Turn: " + Mathf.Ceil(currentTurn/2);
+        
         StartCoroutine(EnableTurnSplash());
     }
 
@@ -146,9 +150,11 @@ public class GameManager : MonoBehaviour
 
     private void NextPlayer()
     {
+        
         currentTurn++;
+        //Debug.Log("max turns" + maxTurns);
 
-        if(currentTurn > maxTurns)
+        if(currentTurn > maxTurns+1)
         {
             Debug.Log("Game Ended!");
 
@@ -166,6 +172,16 @@ public class GameManager : MonoBehaviour
             //MoveSelector.EndState(currentPlayer);
 
             currentPlayer = null;
+
+            winnerText.gameObject.SetActive(true);
+
+            if (p1.GetScore() == p2.GetScore())
+            {
+                winnerText.text = "It's a tie";
+            }
+            else
+                winnerText.text = p1.GetScore() > p2.GetScore() ? "P1 won!" : "P2 won!"; 
+
         }
         else {
             Player tmpPlayer = currentPlayer;
@@ -194,6 +210,8 @@ public class GameManager : MonoBehaviour
             // Since we add the turn each time, we divide by the number of players
             turnText.text = "Turn: " + Mathf.Ceil(currentTurn/2);
         }
+
+
     }
 
     public void UpdateFogOfWar(Tilemap playerFog, Vector2Int newLocation)

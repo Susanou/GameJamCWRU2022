@@ -29,6 +29,11 @@ public class FactionSelection : MonoBehaviour
             player2Faction(p2Faction);
         });
 
+        turnNumber.onEndEdit.AddListener(delegate
+        {
+            maxTurn(turnNumber);
+        });
+
 
     }
 
@@ -81,6 +86,6 @@ public class FactionSelection : MonoBehaviour
 
     public void maxTurn(InputField turns)
     {
-        GameManager.maxTurn = Int32.Parse(turns.value);
+        GameManager.maxTurns = Int32.Parse(turns.text)*2;
     }
 }

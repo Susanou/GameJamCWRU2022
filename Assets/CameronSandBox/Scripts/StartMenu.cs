@@ -11,20 +11,20 @@ public class StartMenu : MonoBehaviour
     {
         SceneManager.LoadScene(1); // 1 should be the number of the castle scene
         Time.timeScale = 1f;
-        MenuMusic.SetActive(false);
+        //MenuMusic.SetActive(false);
     }
 
     public void credits()
     {
         SceneManager.LoadScene(2);
-        MenuMusic.SetActive(false);
+        //MenuMusic.SetActive(false);
     }
 
     public void startMenu()
     {
         Destroy(GameObject.FindGameObjectWithTag("Player"));
         SceneManager.LoadScene(0); // 1 should be the number of the castle scene
-        MenuMusic.SetActive(false);
+        //MenuMusic.SetActive(false);
     }
 
     public void exitGame()

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Tilemap map;
 
-    public static int maxTurns;
+    public static int maxTurns = 10;
     private int currentTurn;
 
     public Vector2Int player1Start;
@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     public Player p1;
     public Player p2;
 
-    public static string p1faction;
-    public static string p2faction;
+    public static string p1faction = "Vampire";
+    public static string p2faction = "Mummy";
 
     public Player currentPlayer;
     public Player otherPlayer;
@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     private MoveSelector moveSelector;
     private bool splashBool = false;
     private Text turnSplashText;
+
+    private bool firstTurn = true;
 
     private GameController controller;
 
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
         turnSplashText = turnSplash.transform.GetChild(0).GetComponent<Text>();
         turnSplash.SetActive(false);
 
-        winnerText.gameObject.SetActive(false);
+        winnerText.gameObject.transform.parent.gameObject.SetActive(false);
 
         currentPlayer = p1;
         otherPlayer = p2;
@@ -104,7 +106,7 @@ public class GameManager : MonoBehaviour
         controller.MovePieces(p2.playerUnits, player2Start);
 
         currentTurn = 1;
-        turnText.text = "Turn: " + Mathf.Ceil(currentTurn/2);
+        turnText.text = "Round: " + Mathf.Ceil(currentTurn/2);
         
         StartCoroutine(EnableTurnSplash());
     }
@@ -135,7 +137,8 @@ public class GameManager : MonoBehaviour
         splashBool = true;
         turnSplashText.text = otherPlayer.name+"'s Turn \n Hit Space to Confirm";
         turnSplashText.color = otherPlayer.name == "player1" ? new Color(0.4f,0.88f,0.94f) : new Color(0.98f,0.14f,0.45f);
-        yield return new WaitForSeconds(1);
+        if(!firstTurn) yield return new WaitForSeconds(1);
+        firstTurn = false;
         turnSplash.SetActive(true);
     }
 
@@ -152,7 +155,6 @@ public class GameManager : MonoBehaviour
     {
         
         currentTurn++;
-        //Debug.Log("max turns" + maxTurns);
 
         if(currentTurn > maxTurns+1)
         {
@@ -173,11 +175,11 @@ public class GameManager : MonoBehaviour
 
             currentPlayer = null;
 
-            winnerText.gameObject.SetActive(true);
+            winnerText.gameObject.transform.parent.gameObject.SetActive(true);
 
             if (p1.GetScore() == p2.GetScore())
             {
-                winnerText.text = "It's a tie";
+                winnerText.text = "It's a tie!";
             }
             else
                 winnerText.text = p1.GetScore() > p2.GetScore() ? "P1 won!" : "P2 won!"; 

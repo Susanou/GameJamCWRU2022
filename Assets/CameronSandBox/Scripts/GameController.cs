@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour
 
     private float CalculateCellDefense(Vector2Int cell) {
         // Optional check board to see if there's anything special in that cell
-        float defense = 2;
+        float defense = 1;
         foreach (GameObject unit in board[cell.x,cell.y].GetContents()) {
             defense += unit.GetComponent<Unit>().defense;
         }

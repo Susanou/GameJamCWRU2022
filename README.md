@@ -5,7 +5,7 @@
 
 <img src="Assets/CameronSandBox/Sprites/eyeguy.png" alt="cover" width="200"/>
 
-## World Domination
+## [World Domination](https://fukurou99.itch.io/world-domination)
 
 You play the role of famous villains from vampires to eldritch horrors and try to dominate the world you are in.
 

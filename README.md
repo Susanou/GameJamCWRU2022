@@ -16,6 +16,6 @@ This is a strategy game on a hex board. Unity's hex tiles helped a lot but their
 | ![](Assets/CameronSandBox/Sprites/mindflayer.png) | ![](Assets/CameronSandBox/Sprites/mummy.png) | ![](Assets/CameronSandBox/Sprites/vampsprite.png) |
 
 
-![startpage](images/startpage.png)
-![p1 turn](images/p1turn.png)
-![p2 turn](images/p2turn.png)
+![startpage](Images/startpage.png)
+![p1 turn](Images/p1turn.png)
+![p2 turn](Images/p2turn.png)
